@@ -1,0 +1,38 @@
+[build-system]
+requires = [ "hatchling",]
+build-backend = "hatchling.build"
+
+[project]
+name = "bitwarden-import-msecure"
+dynamic = [ "version",]
+description = "Migration from mSecure to Bitwarden"
+keywords = [ "bitwarden", "mSecure", "migration", "export", "passwords", "import" ]
+classifiers = [ "Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License", "Operating System :: OS Independent",]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
+[[project.authors]]
+name = "Andrey Sorokin"
+email = "andrey@sorokin.engineer"
+
+[project.license]
+file = "LICENSE.txt"
+
+[project.urls]
+Homepage = "https://andgineer.github.io/bitwarden-import-msecure/"
+Documentation = "https://andgineer.github.io/bitwarden-import-msecure/"
+
+[tool.setuptools]
+packages = "find:"
+
+[tool.ruff]
+line-length = 99
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.manifest]
+include = [ "README.md", "LICENSE.txt",]
+
+[tool.hatch.version]
+path = "src/bitwarden_import_msecure/__about__.py"

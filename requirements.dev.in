@@ -1,0 +1,23 @@
+-r requirements.txt
+
+# test
+pytest
+pytest-cov
+
+# lint
+pre-commit
+mypy
+pylint
+pydocstyle
+
+# docs
+mkdocs-material
+pymdown-extensions
+mkdocs-awesome-pages-plugin
+
+# build & reqs management
+-e .
+hatchling
+toml
+
+
