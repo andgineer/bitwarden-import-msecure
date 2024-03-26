@@ -74,5 +74,4 @@ jobs:
     - name: Upload Coverage to Codecov
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       uses: codecov/codecov-action@v3
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+

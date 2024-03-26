@@ -6,7 +6,7 @@ Migration from mSecure to Bitwarden
 
 # Documentation
 
-[Bitwarden Import mSecure](https://andgineer.github.io/bitwarden-import-msecure/en/)
+[Bitwarden Import mSecure](https://andgineer.github.io/bitwarden-import-msecure/)
 
 # Developers
 
