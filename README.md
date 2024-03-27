@@ -5,8 +5,8 @@
 | Name                                            |    Stmts |     Miss |   Cover |   Missing |
 |------------------------------------------------ | -------: | -------: | ------: | --------: |
 | src/bitwarden\_import\_msecure/\_\_about\_\_.py |        1 |        0 |    100% |           |
-| src/bitwarden\_import\_msecure/main.py          |       52 |        8 |     85% |30-31, 67, 70, 83, 90, 92, 110 |
-|                                       **TOTAL** |   **53** |    **8** | **85%** |           |
+| src/bitwarden\_import\_msecure/main.py          |       57 |        9 |     84% |30-31, 67, 70, 87, 94, 96, 100, 119 |
+|                                       **TOTAL** |   **58** |    **9** | **84%** |           |
 
 
 ## Setup coverage badge
