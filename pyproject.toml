@@ -10,7 +10,7 @@ keywords = [ "bitwarden", "mSecure", "migration", "export", "passwords", "import
 classifiers = [ "Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License", "Operating System :: OS Independent",]
 readme = "README.md"
 requires-python = ">=3.9"
-dependencies = [ "click",]
+dependencies = [ "click", "rich-click",]
 [[project.authors]]
 name = "Andrey Sorokin"
 email = "andrey@sorokin.engineer"
@@ -21,6 +21,9 @@ file = "LICENSE.txt"
 [project.urls]
 Homepage = "https://andgineer.github.io/bitwarden-import-msecure/"
 Documentation = "https://andgineer.github.io/bitwarden-import-msecure/"
+
+[project.scripts]
+bitwarden-import-msecure = "bitwarden_import_msecure.main:bitwarden_import_msecure"
 
 [tool.setuptools]
 packages = "find:"

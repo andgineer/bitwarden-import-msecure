@@ -1,11 +1,10 @@
 # bitwarden-import-msecure
 
-Migration from mSecure to Bitwarden 
-
+Migration from mSecure to Bitwarden
 
 ## Installation
 
-## Installing pipx
+### Installing pipx
 [`pipx`](https://pypa.github.io/pipx/) creates isolated environments to avoid conflicts with existing system packages.
 
 === "MacOS"
@@ -32,9 +31,25 @@ Migration from mSecure to Bitwarden
     python -m pip install --user pipx
     ```
 
-## Installing `bitwarden-import-msecure`:
+### Installing `bitwarden-import-msecure`:
 In the terminal (command prompt), execute:
 
 ```bash
 pipx install bitwarden-import-msecure
 ```
+
+## Usage
+
+In mSecure execute `File` -> `Export` -> `CSV..` and save the file.
+
+Covert the file to Bitwarden format:
+
+```bash
+bitwarden-import-msecure "mSecure Export File.csv"
+```
+
+It will create `bitwarden.csv` in the same folder as input file.
+
+In Bitwarden dialog `File` -> `Import data` select File format: "Bitwarden (csv)".
+Choose previously create file `bitwarden.csv` and press "Import data".
+

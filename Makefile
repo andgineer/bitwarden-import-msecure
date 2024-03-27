@@ -39,6 +39,10 @@ docs:
 	scripts/docs-render-config.sh $(DOCS_LANGUAGE)
 	mkdocs serve -f docs/_mkdocs.yml
 
+.HELP: uv  ## Install or upgrade uv
+uv:
+	curl -LsSf https://astral.sh/uv/install.sh | sh
+
 .HELP: help  ## Display this message
 help:
 	@grep -E \
