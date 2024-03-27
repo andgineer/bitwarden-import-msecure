@@ -46,7 +46,7 @@ pipx install bitwarden-import-msecure
 
 В mSecure выберите `File` -> `Export` -> `CSV..` и сохраните файл.
 
-Преобразуйте файл в формат Bitwarden:
+В терминале (командной строке) открытом в том же каталоге, что и экспортированный файл (или добавьте путь к каталогу):
 
 ```bash
 bitwarden-import-msecure "mSecure Export File.csv"
