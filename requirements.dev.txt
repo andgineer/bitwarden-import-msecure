@@ -14,7 +14,9 @@ cfgv==3.4.0
 charset-normalizer==3.3.2
     # via requests
 click==8.1.7
-    # via mkdocs
+    # via
+    #   bitwarden-import-msecure
+    #   mkdocs
 colorama==0.4.6
     # via mkdocs-material
 coverage==7.3.2

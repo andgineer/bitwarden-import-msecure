@@ -16,6 +16,8 @@ plugins:
       lang: LANGUAGE
 
 markdown_extensions:
+  - pymdownx.tabbed:
+      alternate_style: true
   - abbr
   - attr_list
   - pymdownx.details

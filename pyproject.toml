@@ -6,11 +6,11 @@ build-backend = "hatchling.build"
 name = "bitwarden-import-msecure"
 dynamic = [ "version",]
 description = "Migration from mSecure to Bitwarden"
-keywords = [ "bitwarden", "mSecure", "migration", "export", "passwords", "import" ]
+keywords = [ "bitwarden", "mSecure", "migration", "export", "passwords", "import",]
 classifiers = [ "Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License", "Operating System :: OS Independent",]
 readme = "README.md"
 requires-python = ">=3.9"
-dependencies = []
+dependencies = [ "click",]
 [[project.authors]]
 name = "Andrey Sorokin"
 email = "andrey@sorokin.engineer"

@@ -3,6 +3,13 @@ VERSION := $(shell grep '__version__' src/bitwarden_import_msecure/__about__.py 
 export VERSION
 unexport CONDA_PREFIX  # if conda is installed, it will mess with the virtual env
 
+# If the first argument is "docs" treat additional "targets" as parameters
+ifeq (docs,$(firstword $(MAKECMDGOALS)))
+  DOCS_LANGUAGE := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  # turn the parameters into do-nothing targets
+  $(eval $(RUN_ARGS):;@:)
+endif
+
 .HELP: version ## Show the current version
 version:
 	echo ${VERSION}
@@ -26,18 +33,10 @@ reqs:
 	uv pip install -r requirements.dev.txt
 
 .PHONY: docs # mark as phony so it always runs even we have a docs folder
-.HELP: docs  ## Docs preview English
+.HELP: docs  ## Docs preview for the language specified (bg de en es fr ru)
 docs:
-	./scripts/docstrings.sh
 	open -a "Google Chrome" http://127.0.0.1:8000/bitwarden-import-msecure/
-	scripts/docs-render-config.sh en
-	mkdocs serve -f docs/_mkdocs.yml
-
-.HELP: docs-ru  ## Docs preview Russian
-docs-ru:
-	./scripts/docstrings.sh
-	open -a "Google Chrome" http://127.0.0.1:8000/bitwarden-import-msecure/
-	scripts/docs-render-config.sh ru
+	scripts/docs-render-config.sh $(DOCS_LANGUAGE)
 	mkdocs serve -f docs/_mkdocs.yml
 
 .HELP: help  ## Display this message
