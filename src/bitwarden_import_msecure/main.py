@@ -68,13 +68,17 @@ def convert_row(row: List[str]) -> List[str]:
     record_type = "login"
     if row[1].strip() not in ["Login", "Credit Card", "Email Account"]:
         print(f"Warning: record type is not 'Login' :`{row[1]}`.")
+    tag = row[2].strip()
     notes = row[3].replace("\\n", "\n")
     field_values = {
         "Website": "",
         "Username": "",
         "Password": "",
         "Card Number": "",
+        "Security Code": "",
         "PIN": "",
+        # "Name on Card": "",
+        # "Expiration Date": "",
     }
     for field in row[4:]:
         parts = field.split("|")
@@ -85,25 +89,30 @@ def convert_row(row: List[str]) -> List[str]:
         elif any(value.strip() for value in parts[2:]):
             notes += f"\n{parts[0]}: {','.join(parts[2:])}"
     username = field_values["Card Number"] or field_values["Username"]
-    password = field_values["PIN"] or field_values["Password"]
+    password = field_values["Security Code"] or field_values["Password"]
     if field_values["Card Number"] and field_values["Username"]:
         click.echo(f"Error: Both Card Number and Username present in row: {row}")
-    if field_values["PIN"] and field_values["Password"]:
-        click.echo(f"Error: Both PIN and Password present in row: {row}")
-    bitwarden_row = [
-        "",
-        "",
-        record_type,
-        name,
-        notes,
-        "",
-        "",
-        field_values["Website"],
-        username,
-        password,
-        "",
+    if field_values["Security Code"] and field_values["Password"]:
+        click.echo(f"Error: Both Security Code and Password present in row: {row}")
+    if field_values["Card Number"]:
+        tag = "card"
+    if not username and not password and not field_values["Website"]:
+        record_type = "note"
+    fields = f"PIN: {field_values['PIN']}" if field_values["PIN"] else ""  # todo: set hidden type
+
+    return [
+        tag,  # folder
+        "",  # favorite
+        record_type,  # type
+        name,  # name
+        notes,  # notes
+        fields,  # fields
+        "",  # reprompt
+        field_values["Website"],  # login_uri
+        username,  # login_username
+        password,  # login_password
+        "",  # login_totp
     ]
-    return bitwarden_row
 
 
 if __name__ == "__main__":
