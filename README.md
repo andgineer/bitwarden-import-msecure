@@ -2,10 +2,11 @@
 
 [Full report](https://htmlpreview.github.io/?https://github.com/andgineer/bitwarden-import-msecure/blob/python-coverage-comment-action-data/htmlcov/index.html)
 
-| Name                                            |    Stmts |     Miss |    Cover |   Missing |
-|------------------------------------------------ | -------: | -------: | -------: | --------: |
-| src/bitwarden\_import\_msecure/\_\_about\_\_.py |        1 |        0 |     100% |           |
-|                                       **TOTAL** |    **1** |    **0** | **100%** |           |
+| Name                                            |    Stmts |     Miss |   Cover |   Missing |
+|------------------------------------------------ | -------: | -------: | ------: | --------: |
+| src/bitwarden\_import\_msecure/\_\_about\_\_.py |        1 |        0 |    100% |           |
+| src/bitwarden\_import\_msecure/main.py          |       52 |        8 |     85% |30-31, 67, 70, 83, 90, 92, 110 |
+|                                       **TOTAL** |   **53** |    **8** | **85%** |           |
 
 
 ## Setup coverage badge
