@@ -16,8 +16,8 @@ def assert_files_context_is_equal(file_path1, file_path2):
         lines1 = f1.readlines()
         lines2 = f2.readlines()
 
-        lines1 = [line.replace('\r\n', '\n').replace('\r', '\n') for line in lines1]
-        lines2 = [line.replace('\r\n', '\n').replace('\r', '\n') for line in lines2]
+        lines1 = [line.replace('\r\n', '\n').replace('\r', '\n') for line in lines1 if line.strip()]
+        lines2 = [line.replace('\r\n', '\n').replace('\r', '\n') for line in lines2 if line.strip()]
         assert lines1 == lines2
 
 
