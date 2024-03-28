@@ -53,3 +53,11 @@ It will create `bitwarden.csv` in the same folder as input file.
 In Bitwarden dialog `File` -> `Import data` select File format: "Bitwarden (csv)".
 Choose previously create file `bitwarden.csv` and press "Import data".
 
+
+### Advanced
+
+Use 
+```bash
+bitwarden-import-msecure --help
+```
+to see all available options.

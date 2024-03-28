@@ -28,7 +28,7 @@ def bitwarden_import_msecure(input_file: str, output_file: str, force: bool) -> 
 
     if os.path.exists(output_file) and not force:
         click.echo(f"Output file {output_file} already exists. Use --force to overwrite.")
-        return
+        raise click.Abort()
 
     with (
         open(input_file, newline="", encoding="utf-8") as infile,
@@ -91,10 +91,12 @@ def convert_row(row: List[str]) -> List[str]:
     username = field_values["Card Number"] or field_values["Username"]
     password = field_values["Security Code"] or field_values["Password"]
     if field_values["Card Number"] and field_values["Username"]:
-        click.echo(f"Error: Both Card Number and Username present in row: {row}")
+        click.echo(f"Error: Both Card Number and Username present in row:\n{row}")
     if field_values["Security Code"] and field_values["Password"]:
-        click.echo(f"Error: Both Security Code and Password present in row: {row}")
+        click.echo(f"Error: Both Security Code and Password present in row:\n{row}")
     if field_values["Card Number"]:
+        if tag:
+            click.echo(f"Warning: Tag `{tag}` present for Card, override with `card`:\n{row}")
         tag = "card"
     if not username and not password and not field_values["Website"]:
         record_type = "note"
@@ -115,5 +117,5 @@ def convert_row(row: List[str]) -> List[str]:
     ]
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     bitwarden_import_msecure()  # pylint: disable=no-value-for-parameter

@@ -56,3 +56,13 @@ bitwarden-import-msecure "mSecure Export File.csv"
 
 В диалоговом окне Bitwarden выберите `Файл` -> `Импорт данных`, выберите Формат файла: "Bitwarden (csv)".
 Выберите ранее созданный файл `bitwarden.csv` и нажмите "Импорт данных".
+
+
+### Дополнительно
+
+Чтобы увидеть все параметры, используйте: 
+```bash
+bitwarden-import-msecure --help
+```
+
+

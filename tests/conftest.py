@@ -22,6 +22,5 @@ def msecure_export():
 
 
 @pytest.fixture
-def expected_output():
-    with open(RESOURCES / "bitwarden_export.csv") as f:
-        return f.read()
+def bitwarden_file():
+    return RESOURCES / "bitwarden_export.csv"
