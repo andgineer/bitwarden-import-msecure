@@ -24,3 +24,8 @@ def msecure_export():
 @pytest.fixture
 def bitwarden_file():
     return RESOURCES / "bitwarden_export.csv"
+
+
+@pytest.fixture
+def bitwarden_notes_file():
+    return RESOURCES / "bitwarden_notes_export.csv"

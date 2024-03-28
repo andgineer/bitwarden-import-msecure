@@ -1,6 +1,11 @@
 # bitwarden-import-msecure
 
-Migration from mSecure to Bitwarden
+Migration from mSecure to Bitwarden.
+
+Unlike the built-in Bitwarden import tool, this script does not place each secret into a separate folder. 
+Instead, it organizes secrets into meaningful folders and offers several options to customize the import process.
+
+Additionally, this simple Python script can be easily modified to meet your specific needs.
 
 ## Installation
 

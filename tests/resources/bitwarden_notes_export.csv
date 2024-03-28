@@ -3,8 +3,8 @@ folder,favorite,type,name,notes,fields,reprompt,login_uri,login_username,login_p
 ,,login, VK,,,,vk.com,+1 555 555 5555,,
 ,,login,(deleted) airtable sheets,,,,https://airtable.com/,andrey@sorokin.engineer,my-cool-password,
 card,,login,My VISA,"+1 555 555 5555
-11111, London, Baker Street 221B.","Expiration Date: 12/2099
-Name on Card: Sherlock Holmes
-PIN: 1234",,,1234 5678 9012 3456,123,
+11111, London, Baker Street 221B.
+Expiration Date: 12/2099
+Name on Card: Sherlock Holmes",PIN: 1234,,,1234 5678 9012 3456,123,
 ,,login,Docker hub,"andrey@sorokin.engineer
 Before 20190429 my-cool-password",,,hub.docker.com,sorokin.engineer,my-cool-password,
