@@ -6,10 +6,10 @@
 |-------------------------------------------------- | -------: | -------: | ------: | --------: |
 | src/bitwarden\_import\_msecure/\_\_about\_\_.py   |        1 |        0 |    100% |           |
 | src/bitwarden\_import\_msecure/bitwarden\_csv.py  |       14 |        0 |    100% |           |
-| src/bitwarden\_import\_msecure/bitwarden\_json.py |       41 |       26 |     37% |20-22, 30-43, 48-90, 94-95 |
-| src/bitwarden\_import\_msecure/main.py            |       30 |        1 |     97% |        59 |
-| src/bitwarden\_import\_msecure/msecure.py         |       49 |        7 |     86% |14, 17, 25, 30, 66, 83, 85 |
-|                                         **TOTAL** |  **135** |   **34** | **75%** |           |
+| src/bitwarden\_import\_msecure/bitwarden\_json.py |       45 |        3 |     93% |14, 41, 92 |
+| src/bitwarden\_import\_msecure/main.py            |       30 |        0 |    100% |           |
+| src/bitwarden\_import\_msecure/msecure.py         |       52 |        8 |     85% |14, 17, 25, 30, 32, 70, 87, 89 |
+|                                         **TOTAL** |  **142** |   **11** | **92%** |           |
 
 
 ## Setup coverage badge
