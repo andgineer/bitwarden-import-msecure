@@ -5,9 +5,13 @@ import uuid
 from pathlib import Path
 from typing import Dict, Any
 from datetime import datetime
-from zoneinfo import ZoneInfo
 
 BITWARDEN_TYPES = {"login": 1, "note": 2, "card": 3}
+
+
+def now_string() -> str:
+    """Return current time in Bitwarden format."""
+    return datetime.now().astimezone().isoformat()
 
 
 class BitwardenJson:
@@ -44,8 +48,7 @@ class BitwardenJson:
 
     def write_record(self, data: Dict[str, Any]) -> None:
         """Export data to JSON."""
-        # datetime.now(ZoneInfo("UTC")).astimezone().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + 'Z'
-        now = datetime.now(ZoneInfo("UTC")).astimezone().isoformat()
+        now = now_string()
 
         item = {
             "passwordHistory": None,
