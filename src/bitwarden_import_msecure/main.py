@@ -30,8 +30,8 @@ NOTES_MODE = "notes"
     "--format",
     "output_format",
     type=click.Choice(["csv", "json"]),
-    default="csv",  # todo: "json",
-    help="Output file format.",
+    default="json",
+    help="Output file format. JSON by default. CSV is legacy format with less features.",
 )
 def bitwarden_import_msecure(
     input_file: str, output_file: str, force: bool, extra_fields: str, output_format: str

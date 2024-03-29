@@ -57,10 +57,10 @@ pipx install bitwarden-import-msecure
 bitwarden-import-msecure "mSecure Export File.csv"
 ```
 
-Это создаст `bitwarden.csv` в той же папке, что и исходный файл.
+Это создаст `bitwarden.json` в той же папке, что и исходный файл.
 
-В диалоговом окне Bitwarden выберите `Файл` -> `Импорт данных`, выберите Формат файла: "Bitwarden (csv)".
-Выберите ранее созданный файл `bitwarden.csv` и нажмите "Импорт данных".
+В диалоговом окне Bitwarden выберите `Файл` -> `Импорт данных`, выберите Формат файла: "Bitwarden (json)".
+Выберите ранее созданный файл `bitwarden.json` и нажмите "Импорт данных".
 
 
 ### Дополнительно

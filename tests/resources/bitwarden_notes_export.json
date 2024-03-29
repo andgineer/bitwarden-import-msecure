@@ -1,0 +1,134 @@
+{
+    "encrypted": false,
+    "folders": [
+        {
+            "id": "12345678-1234-5678-1234-567812345678",
+            "name": "bank"
+        }
+    ],
+    "items": [
+        {
+            "passwordHistory": null,
+            "revisionDate": "2024-03-29T09:49:23.836557+01:00",
+            "creationDate": "2024-03-29T09:49:23.836557+01:00",
+            "deletedDate": null,
+            "id": "12345678-1234-5678-1234-567812345678",
+            "organizationId": null,
+            "folderId": null,
+            "type": 1,
+            "reprompt": 0,
+            "name": " OpenStreetMap",
+            "notes": "",
+            "favorite": false,
+            "collectionIds": null,
+            "login": {
+                "fido2Credentials": [],
+                "uris": [],
+                "username": "andrey@sorokin.engineer",
+                "password": "my-cool-password",
+                "totp": null
+            },
+            "fields": []
+        },
+        {
+            "passwordHistory": null,
+            "revisionDate": "2024-03-29T09:49:23.836557+01:00",
+            "creationDate": "2024-03-29T09:49:23.836557+01:00",
+            "deletedDate": null,
+            "id": "12345678-1234-5678-1234-567812345678",
+            "organizationId": null,
+            "folderId": null,
+            "type": 1,
+            "reprompt": 0,
+            "name": " VK",
+            "notes": "",
+            "favorite": false,
+            "collectionIds": null,
+            "login": {
+                "fido2Credentials": [],
+                "uris": [],
+                "username": "+1 555 555 5555",
+                "password": "",
+                "totp": null
+            },
+            "fields": []
+        },
+        {
+            "passwordHistory": null,
+            "revisionDate": "2024-03-29T09:49:23.836557+01:00",
+            "creationDate": "2024-03-29T09:49:23.836557+01:00",
+            "deletedDate": null,
+            "id": "12345678-1234-5678-1234-567812345678",
+            "organizationId": null,
+            "folderId": null,
+            "type": 1,
+            "reprompt": 0,
+            "name": "(deleted) airtable sheets",
+            "notes": "",
+            "favorite": false,
+            "collectionIds": null,
+            "login": {
+                "fido2Credentials": [],
+                "uris": [],
+                "username": "andrey@sorokin.engineer",
+                "password": "my-cool-password",
+                "totp": null
+            },
+            "fields": []
+        },
+        {
+            "passwordHistory": null,
+            "revisionDate": "2024-03-29T09:49:23.836557+01:00",
+            "creationDate": "2024-03-29T09:49:23.836557+01:00",
+            "deletedDate": null,
+            "id": "12345678-1234-5678-1234-567812345678",
+            "organizationId": null,
+            "folderId": "12345678-1234-5678-1234-567812345678",
+            "type": 3,
+            "reprompt": 0,
+            "name": "My VISA",
+            "notes": "+1 555 555 5555\n11111, London, Baker Street 221B.\nExpiration Date: 12/2099\nName on Card: Sherlock Holmes",
+            "favorite": false,
+            "collectionIds": null,
+            "card": {
+                "cardholderName": "",
+                "brand": "",
+                "number": "1234 5678 9012 3456",
+                "expMonth": "",
+                "expYear": "",
+                "code": "123"
+            },
+            "fields": [
+                {
+                    "name": "PIN",
+                    "value": "1234",
+                    "type": 1,
+                    "linkedId": null
+                }
+            ]
+        },
+        {
+            "passwordHistory": null,
+            "revisionDate": "2024-03-29T09:49:23.836557+01:00",
+            "creationDate": "2024-03-29T09:49:23.836557+01:00",
+            "deletedDate": null,
+            "id": "12345678-1234-5678-1234-567812345678",
+            "organizationId": null,
+            "folderId": null,
+            "type": 1,
+            "reprompt": 0,
+            "name": "Docker hub",
+            "notes": "andrey@sorokin.engineer\nBefore 20190429 my-cool-password",
+            "favorite": false,
+            "collectionIds": null,
+            "login": {
+                "fido2Credentials": [],
+                "uris": [],
+                "username": "sorokin.engineer",
+                "password": "my-cool-password",
+                "totp": null
+            },
+            "fields": []
+        }
+    ]
+}

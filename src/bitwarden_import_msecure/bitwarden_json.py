@@ -54,7 +54,7 @@ class BitwardenJson:
             "deletedDate": None,
             "id": str(uuid.uuid4()),
             "organizationId": None,
-            "folderId": self.folders[data["folder"]],
+            "folderId": self.folders[data["folder"]] if data["folder"] else None,
             "type": BITWARDEN_TYPES[data["type"]],
             "reprompt": 0,
             "name": data["name"],
@@ -74,8 +74,11 @@ class BitwardenJson:
             exp_month, exp_year = (
                 data["fields"].pop("Expiration Date", "").split("/") + ["", ""]
             )[:2]
+            cardholder_name = data["fields"].pop("Name on Card", "")
+            if not cardholder_name:
+                cardholder_name = data["fields"].pop("Name", "")
             item["card"] = {
-                "cardholderName": data["fields"].pop("Name on Card", ""),
+                "cardholderName": cardholder_name,
                 "brand": "",
                 "number": data["login_username"],
                 "expMonth": exp_month,
@@ -85,7 +88,13 @@ class BitwardenJson:
         if data["type"] == "note":
             item["secureNote"] = {"type": 0}
         item["fields"] = [
-            {"name": k, "value": v, "type": 0, "linkedId": None} for k, v in data["fields"].items()
+            {
+                "name": k,
+                "value": v,
+                "type": 1 if k in data["hidden_fields"] else 0,
+                "linkedId": None,
+            }
+            for k, v in data["fields"].items()
         ]
         self.data["items"].append(item)
 

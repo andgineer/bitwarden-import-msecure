@@ -53,10 +53,10 @@ In the terminal (command prompt) opened in the same folder as the exported file 
 bitwarden-import-msecure "mSecure Export File.csv"
 ```
 
-It will create `bitwarden.csv` in the same folder as input file.
+It will create `bitwarden.json` in the same folder as input file.
 
-In Bitwarden dialog `File` -> `Import data` select File format: "Bitwarden (csv)".
-Choose previously create file `bitwarden.csv` and press "Import data".
+In Bitwarden dialog `File` -> `Import data` select File format: "Bitwarden (json)".
+Choose previously create file `bitwarden.json` and press "Import data".
 
 
 ### Advanced

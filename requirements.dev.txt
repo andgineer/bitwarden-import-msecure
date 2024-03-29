@@ -30,6 +30,7 @@ editables==0.5
     # via hatchling
 filelock==3.13.1
     # via virtualenv
+freezegun==1.4.0
 ghp-import==2.1.0
     # via mkdocs
 hatchling==1.20.0
@@ -110,7 +111,9 @@ pytest==7.4.3
     # via pytest-cov
 pytest-cov==4.1.0
 python-dateutil==2.8.2
-    # via ghp-import
+    # via
+    #   freezegun
+    #   ghp-import
 pyyaml==6.0.1
     # via
     #   mkdocs

@@ -17,8 +17,8 @@ def import_msecure_row(row: List[str], extra_fields_to_notes: bool) -> Dict[str,
         print(f"Warning: record type is not 'Login' :`{row[1]}`.")
     tag = row[2].strip()
     special_fields, fields, notes = extract_fields(row, extra_fields_to_notes)
-    notes_parts = [part for part in [row[3].replace("\\n", "\n"), notes] if part]
-    notes = "\n".join(notes_parts)
+    hidden_fields = []
+    notes = "\n".join([part.replace("\\n", "\n") for part in [row[3], notes] if part.strip()])
     password, username = get_creds(special_fields, row)
     if special_fields["Card Number"]:
         if tag:
@@ -26,10 +26,13 @@ def import_msecure_row(row: List[str], extra_fields_to_notes: bool) -> Dict[str,
         else:
             tag = BANK_FOLDER
         record_type = "card"
+    if "bank" in name.lower() and not tag:
+        tag = BANK_FOLDER
     if not username and not password and not special_fields["Website"]:
         record_type = "note"
     if special_fields["PIN"]:
-        fields["PIN"] = special_fields["PIN"]  # todo: place hidden fields to separate list
+        fields["PIN"] = special_fields["PIN"]
+        hidden_fields.append("PIN")
 
     return {
         "folder": tag,
@@ -37,6 +40,7 @@ def import_msecure_row(row: List[str], extra_fields_to_notes: bool) -> Dict[str,
         "name": name,
         "notes": notes,
         "fields": fields,
+        "hidden_fields": hidden_fields,  # names of fields to hide
         "login_uri": special_fields["Website"],
         "login_username": username,
         "login_password": password,
