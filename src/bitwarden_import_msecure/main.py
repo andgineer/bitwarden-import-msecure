@@ -9,6 +9,9 @@ from bitwarden_import_msecure.bitwarden_csv import BitwardenCsv
 from bitwarden_import_msecure.bitwarden_json import BitwardenJson
 from bitwarden_import_msecure.msecure import import_msecure_row
 
+click.rich_click.USE_MARKDOWN = True
+
+
 OUTPUT_FILE_DEFAULT = "bitwarden"
 NOTES_MODE = "notes"
 
@@ -40,9 +43,9 @@ def bitwarden_import_msecure(
     Converts file `INPUT_FILE` exported from mSecure to Bitwarden compatible format
     to `OUTPUT_FILE`.
 
-    1.Export CSV from mSecure
-    2.Run this script on the exported CSV file
-    3.Import the processed file into Bitwarden
+     - Export CSV from mSecure
+     - Run this script on the exported CSV file
+     - Import the processed file into Bitwarden
     """
     output_path = (
         Path(output_file)
