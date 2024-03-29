@@ -16,50 +16,63 @@ def import_msecure_row(row: List[str], extra_fields_to_notes: bool) -> Dict[str,
     if row[1].strip() not in ["Login", "Credit Card", "Email Account"]:
         print(f"Warning: record type is not 'Login' :`{row[1]}`.")
     tag = row[2].strip()
-    notes = row[3].replace("\\n", "\n")
-    field_values = {
-        "Website": "",
-        "Username": "",
-        "Password": "",
-        "Card Number": "",
-        "Security Code": "",
-        "PIN": "",
-        # "Name on Card": "",
-        # "Expiration Date": "",
-    }
-    fields = {}
-    for field in row[4:]:
-        parts = field.split("|")
-        if parts[0] in field_values:
-            if field_values[parts[0]]:
-                print(f"Warning: Duplicate field `{parts[0]}` in row `{row}`.")
-            field_values[parts[0]] = "|".join(parts[2:])
-        elif any(value.strip() for value in parts[2:]):
-            if extra_fields_to_notes:
-                notes += f"\n{parts[0]}: {','.join(parts[2:])}"
-            else:
-                fields[parts[0]] = ",".join(parts[2:])
-    password, username = get_creds(field_values, row)
-    if field_values["Card Number"]:
+    special_fields, fields, notes = extract_fields(row, extra_fields_to_notes)
+    notes_parts = [part for part in [row[3].replace("\\n", "\n"), notes] if part]
+    notes = "\n".join(notes_parts)
+    password, username = get_creds(special_fields, row)
+    if special_fields["Card Number"]:
         if tag:
-            click.echo(f"Warning: Tag `{tag}` present for Card, override with `card`:\n{row}")
-        tag = BANK_FOLDER
-        # todo: record_type = "card"
-    if not username and not password and not field_values["Website"]:
+            click.echo(f"Warning: Tag `{tag}` present for Credit Card, ignored:\n{row}")
+        else:
+            tag = BANK_FOLDER
+        record_type = "card"
+    if not username and not password and not special_fields["Website"]:
         record_type = "note"
-    if field_values["PIN"]:
-        fields["PIN"] = field_values["PIN"]
+    if special_fields["PIN"]:
+        fields["PIN"] = special_fields["PIN"]  # todo: place hidden fields to separate list
 
     return {
         "folder": tag,
         "type": record_type,
         "name": name,
         "notes": notes,
-        "fields": "\n".join([f"{field_name}: {value}" for field_name, value in fields.items()]),
-        "login_uri": field_values.get("Website", ""),
+        "fields": fields,
+        "login_uri": special_fields["Website"],
         "login_username": username,
         "login_password": password,
     }
+
+
+def extract_fields(
+    row: List[str], extra_fields_to_notes: bool
+) -> Tuple[Dict[str, str], Dict[str, str], str]:
+    """Extract fields from mSecure row.
+
+    Return (special_fields, fields, notes)
+    """
+    special_fields = {
+        "Website": "",
+        "Username": "",
+        "Password": "",
+        "Card Number": "",
+        "Security Code": "",
+        "PIN": "",
+    }
+    fields = {}
+    for field in row[4:]:
+        parts = field.split("|")
+        if parts[0] in special_fields:
+            if special_fields[parts[0]]:
+                print(f"Warning: Duplicate field `{parts[0]}` in row `{row}`.")
+            special_fields[parts[0]] = "|".join(parts[2:])
+        elif any(value.strip() for value in parts[2:]):
+            fields[parts[0]] = ",".join(parts[2:])
+    if extra_fields_to_notes:
+        notes = "\n".join([f"{name}: {value}" for name, value in fields.items()])
+        fields = {}
+    else:
+        notes = ""
+    return special_fields, fields, notes
 
 
 def get_creds(field_values: Dict[str, str], row: List[str]) -> Tuple[str, str]:

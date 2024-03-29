@@ -31,10 +31,10 @@ class BitwardenCsv:
         row = [
             data["folder"],
             "",  # favorite
-            data["type"],
+            "login" if data["type"] == "card" else data["type"],
             data["name"],
             data["notes"],
-            data["fields"],
+            "\n".join([f"{field_name}: {value}" for field_name, value in data["fields"].items()]),
             "",  # reprompt
             data["login_uri"],
             data["login_username"],

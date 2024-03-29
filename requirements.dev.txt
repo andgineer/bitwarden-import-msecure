@@ -126,6 +126,7 @@ requests==2.31.0
 rich==13.7.1
     # via rich-click
 rich-click==1.7.4
+    # via bitwarden-import-msecure
 setuptools==69.2.0
     # via nodeenv
 six==1.16.0

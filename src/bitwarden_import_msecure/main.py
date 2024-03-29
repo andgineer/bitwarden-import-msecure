@@ -6,6 +6,7 @@ from pathlib import Path
 import rich_click as click
 
 from bitwarden_import_msecure.bitwarden_csv import BitwardenCsv
+from bitwarden_import_msecure.bitwarden_json import BitwardenJson
 from bitwarden_import_msecure.msecure import import_msecure_row
 
 OUTPUT_FILE_DEFAULT = "bitwarden"
@@ -29,7 +30,7 @@ NOTES_MODE = "notes"
     "--format",
     "output_format",
     type=click.Choice(["csv", "json"]),
-    default="csv",
+    default="csv",  # todo: "json",
     help="Output file format.",
 )
 def bitwarden_import_msecure(
@@ -46,7 +47,7 @@ def bitwarden_import_msecure(
     output_path = (
         Path(output_file)
         if output_file
-        else Path(input_file).parent / f"{OUTPUT_FILE_DEFAULT}.csv"  # f".{format}"
+        else Path(input_file).parent / f"{OUTPUT_FILE_DEFAULT}.{output_format}"
     )
     if output_path.exists() and not force:
         click.echo(f"Output file {output_path} already exists. Use --force to overwrite.")
@@ -55,7 +56,7 @@ def bitwarden_import_msecure(
     if output_format == "csv":
         writer = BitwardenCsv(output_path)
     else:
-        writer = BitwardenCsv(output_path)  # todo: implement json export
+        writer = BitwardenJson(output_path)
 
     with open(input_file, newline="", encoding="utf-8") as infile:
         reader = csv.reader(infile, delimiter=",")
