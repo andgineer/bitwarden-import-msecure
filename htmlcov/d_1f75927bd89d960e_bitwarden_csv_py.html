@@ -62,10 +62,10 @@
         <p class="text">
             <a id="prevFileLink" class="nav" href="d_1f75927bd89d960e___about___py.html">&#xab; prev</a> &nbsp; &nbsp;
             <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
-            <a id="nextFileLink" class="nav" href="d_1f75927bd89d960e_main_py.html">&#xbb; next</a>
+            <a id="nextFileLink" class="nav" href="d_1f75927bd89d960e_bitwarden_json_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.4.4">coverage.py v7.4.4</a>,
-            created at 2024-03-28 14:58 +0000
+            created at 2024-03-29 07:32 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"/>
@@ -113,10 +113,10 @@
     <p class="run"><span class="n"><a id="t31" href="#t31">31</a></span><span class="t">        <span class="nam">row</span> <span class="op">=</span> <span class="op">[</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t32" href="#t32">32</a></span><span class="t">            <span class="nam">data</span><span class="op">[</span><span class="str">"folder"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t33" href="#t33">33</a></span><span class="t">            <span class="str">""</span><span class="op">,</span>  <span class="com"># favorite</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t34" href="#t34">34</a></span><span class="t">            <span class="nam">data</span><span class="op">[</span><span class="str">"type"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t34" href="#t34">34</a></span><span class="t">            <span class="str">"login"</span> <span class="key">if</span> <span class="nam">data</span><span class="op">[</span><span class="str">"type"</span><span class="op">]</span> <span class="op">==</span> <span class="str">"card"</span> <span class="key">else</span> <span class="nam">data</span><span class="op">[</span><span class="str">"type"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t35" href="#t35">35</a></span><span class="t">            <span class="nam">data</span><span class="op">[</span><span class="str">"name"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t36" href="#t36">36</a></span><span class="t">            <span class="nam">data</span><span class="op">[</span><span class="str">"notes"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t37" href="#t37">37</a></span><span class="t">            <span class="nam">data</span><span class="op">[</span><span class="str">"fields"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t37" href="#t37">37</a></span><span class="t">            <span class="str">"\n"</span><span class="op">.</span><span class="nam">join</span><span class="op">(</span><span class="op">[</span><span class="fst">f"</span><span class="op">{</span><span class="nam">field_name</span><span class="op">}</span><span class="fst">: </span><span class="op">{</span><span class="nam">value</span><span class="op">}</span><span class="fst">"</span> <span class="key">for</span> <span class="nam">field_name</span><span class="op">,</span> <span class="nam">value</span> <span class="key">in</span> <span class="nam">data</span><span class="op">[</span><span class="str">"fields"</span><span class="op">]</span><span class="op">.</span><span class="nam">items</span><span class="op">(</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t38" href="#t38">38</a></span><span class="t">            <span class="str">""</span><span class="op">,</span>  <span class="com"># reprompt</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t39" href="#t39">39</a></span><span class="t">            <span class="nam">data</span><span class="op">[</span><span class="str">"login_uri"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t40" href="#t40">40</a></span><span class="t">            <span class="nam">data</span><span class="op">[</span><span class="str">"login_username"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -134,10 +134,10 @@
         <p>
             <a id="prevFileLink" class="nav" href="d_1f75927bd89d960e___about___py.html">&#xab; prev</a> &nbsp; &nbsp;
             <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
-            <a id="nextFileLink" class="nav" href="d_1f75927bd89d960e_main_py.html">&#xbb; next</a>
+            <a id="nextFileLink" class="nav" href="d_1f75927bd89d960e_bitwarden_json_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.4.4">coverage.py v7.4.4</a>,
-            created at 2024-03-28 14:58 +0000
+            created at 2024-03-29 07:32 +0000
         </p>
     </div>
 </footer>
