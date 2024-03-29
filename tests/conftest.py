@@ -25,19 +25,19 @@ def msecure_export():
         return f.read()
 
 
-fixed_now = datetime(2024, 3, 29, 9, 49, 23, 836557, tzinfo=timezone(timedelta(hours=1)))
+fixed_now = datetime(2024, 3, 29, 8, 49, 23, 836557, tzinfo=timezone(timedelta(hours=1)))
 fixed_uuid = uuid.UUID('12345678-1234-5678-1234-567812345678')
 
 
 @pytest.fixture
 def bitwarden_file():
-    with freeze_time(fixed_now), patch('uuid.uuid4', return_value=fixed_uuid):
+    with freeze_time(fixed_now, tz_offset=1), patch('uuid.uuid4', return_value=fixed_uuid):
         yield  RESOURCES / "bitwarden_export.json"
 
 
 @pytest.fixture
 def bitwarden_notes_file():
-    with freeze_time(fixed_now), patch('uuid.uuid4', return_value=fixed_uuid):
+    with freeze_time(fixed_now, tz_offset=1), patch('uuid.uuid4', return_value=fixed_uuid):
         yield  RESOURCES / "bitwarden_notes_export.json"
 
 
