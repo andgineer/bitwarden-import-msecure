@@ -10,3 +10,4 @@ pytest.xml
 .dmypy.json
 pytest-coverage.txt
 *.py-e
+.venv/
