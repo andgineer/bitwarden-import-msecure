@@ -8,6 +8,7 @@ import rich_click as click
 from bitwarden_import_msecure.bitwarden_csv import BitwardenCsv
 from bitwarden_import_msecure.bitwarden_json import BitwardenJson
 from bitwarden_import_msecure.msecure import import_msecure_row
+from bitwarden_import_msecure.__about__ import __version__
 
 click.rich_click.USE_MARKDOWN = True
 
@@ -17,6 +18,7 @@ NOTES_MODE = "notes"
 
 
 @click.command()
+@click.version_option(version=__version__, prog_name="bitwarden-import-msecure")
 @click.argument("input_file", type=click.Path(exists=True))  # ~/Downloads/mSecure Export File.csv
 @click.argument("output_file", type=click.Path(), required=False)
 @click.option("--force", is_flag=True, help="Overwrite the output file if it exists.")
