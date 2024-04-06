@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 #
+# Obsolete - use invoke tasks instead.
+#
 # Pin current dependencies versions.
 #
 unset CONDA_PREFIX  # if conda is installed, it will mess with the virtual env
