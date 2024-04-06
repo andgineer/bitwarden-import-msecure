@@ -4,6 +4,23 @@ from invoke import task, Context, Collection
 import subprocess
 
 
+def get_allowed_doc_languages():
+    build_docs_file_name = "scripts/build-docs.sh"
+    try:
+        with open(build_docs_file_name, "r") as f:
+            for line in f:
+                if "for lang in" in line:
+                    langs = line.split("in")[1].strip().split(";")[0].split()
+                    return [lang.strip() for lang in langs]
+    except FileNotFoundError:
+        print(f"No {build_docs_file_name} file found")
+    return ["en", "bg", "de", "es", "fr", "ru"]  # default
+
+
+ALLOWED_DOC_LANGUAGES = get_allowed_doc_languages()
+ALLOWED_VERSION_TYPES = ["release", "bug", "feature"]
+
+
 @task
 def version(c: Context):
     """Show the current version."""
@@ -12,10 +29,6 @@ def version(c: Context):
         version_num = version_line.split('"')[1]
         print(version_num)
         return version_num
-
-
-ALLOWED_DOC_LANGUAGES = ["bg", "de", "en", "es", "fr", "ru"]
-ALLOWED_VERSION_TYPES = ["release", "bug", "feature"]
 
 
 def ver_task_factory(version_type: str):
