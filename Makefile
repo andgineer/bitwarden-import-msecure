@@ -1,4 +1,6 @@
 #!make
+# obsolete - use invoke instead, see tasks.py and README.md
+
 VERSION := $(shell grep '__version__' src/bitwarden_import_msecure/__about__.py | cut -d '"' -f2)
 export VERSION
 unexport CONDA_PREFIX  # if conda is installed, it will mess with the virtual env

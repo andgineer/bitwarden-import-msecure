@@ -13,7 +13,17 @@ Migration from mSecure to Bitwarden
 Do not forget to run `. ./activate.sh`.
 
 # Scripts
-    make help
+Install [invoke](https://docs.pyinvoke.org/en/stable/) preferably with [pipx](https://pypa.github.io/pipx/):
+
+    pipx install invoke
+
+For a list of available scripts run:
+
+    invoke --list
+
+For more information about a script run:
+
+    invoke <script> --help
 
 ## Coverage report
 * [Codecov](https://app.codecov.io/gh/andgineer/bitwarden-import-msecure/tree/main/src%2Fbitwarden_import_msecure)

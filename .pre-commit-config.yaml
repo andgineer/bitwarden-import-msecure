@@ -9,7 +9,7 @@ exclude: |
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.3.4
+    rev: v0.3.5
     hooks:
       # Run the linter.
       - id: ruff
@@ -31,6 +31,7 @@ repos:
           --warn-unused-ignores
           --cache-fine-grained
           --no-namespace-packages
+        exclude: tasks.py
         files: \.py$
         language: python
 
@@ -38,4 +39,5 @@ repos:
         name: Pylint
         entry: pylint --max-line-length=99 --ignore-imports=yes
         files: \.py$
+        exclude: tasks.py
         language: python
