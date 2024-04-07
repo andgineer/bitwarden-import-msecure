@@ -75,7 +75,7 @@ jobs:
         allure_history: allure-history
         allure_results: allure-results
         keep_reports: 100
-        subfolder: allure-history/allure
+        subfolder: allure
 
     - name: Publish Allure test report
       uses: peaceiris/actions-gh-pages@v3
@@ -85,16 +85,6 @@ jobs:
         publish_branch: gh-pages
         publish_dir: allure-history/allure
         destination_dir: allure
-
-    - name: Post the link to the Allure report
-      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
-      uses: JamesIves/github-pages-deploy-action@v4.4.1
-      with:
-        branch: gh-pages
-        folder: allure-history/allure
-        target-folder: allure/${{ github.run_number }}
-        token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: "Allure report for run ${{ github.run_number }}"
 
     - name: Coverage comment
       id: coverage_comment
