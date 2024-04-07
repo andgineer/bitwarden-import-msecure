@@ -10,6 +10,9 @@ on:
   pull_request:
     branches: [ master, main ]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     strategy:
@@ -23,7 +26,8 @@ jobs:
         python -m pytest 
         --junitxml=pytest.xml 
         --cov-report=term-missing:skip-covered 
-        --cov=src 
+        --cov=src
+        --alluredir=./allure-results
         tests/
     runs-on: ${{ matrix.platform }}
     permissions:
@@ -38,6 +42,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Load Allure test report history
+      uses: actions/checkout@v4
+      if: always()
+      continue-on-error: true
+      with:
+        ref: gh-pages
+        path: gh-pages
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
@@ -50,6 +62,22 @@ jobs:
 
     - name: Test with pytest
       run: ${{ env.PYTEST_CMD }}
+
+    - name: Build Allure test report
+      uses: simple-elf/allure-report-action@v1.7
+      if: always()
+      with:
+        gh_pages: gh-pages
+        allure_history: allure-history
+        allure_results: allure-results
+
+    - name: Publish Allure test report
+      uses: peaceiris/actions-gh-pages@v3
+      if: always()
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: allure-history
 
     - name: Coverage comment
       id: coverage_comment

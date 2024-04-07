@@ -12,3 +12,5 @@ pytest-coverage.txt
 *.py-e
 .venv/
 **/_mkdocs.yml*
+**/allure-results/
+**/allure-report/
