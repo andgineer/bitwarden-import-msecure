@@ -74,7 +74,6 @@ jobs:
         gh_pages: gh-pages
         allure_history: allure-history
         allure_results: allure-results
-        subfolder: allure
         keep_reports: 100
 
     - name: Publish Allure test report
@@ -83,7 +82,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
-        publish_dir: allure/allure-history
+        publish_dir: allure-history
         destination_dir: allure
 
     - name: Post the link to the Allure report
