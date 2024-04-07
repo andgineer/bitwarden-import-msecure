@@ -75,7 +75,7 @@ jobs:
         allure_history: allure-history
         allure_results: allure-results
         keep_reports: 100
-        subfolder: allure
+        subfolder: allure-history/allure
 
     - name: Publish Allure test report
       uses: peaceiris/actions-gh-pages@v3
