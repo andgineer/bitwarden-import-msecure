@@ -85,16 +85,6 @@ jobs:
         publish_branch: gh-pages
         publish_dir: allure/allure-history
 
-    - name: Post the link to the Allure report
-      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
-      uses: Sibz/github-status-action@v1
-      with:
-          authToken: ${{secrets.GITHUB_TOKEN}}
-          context: 'Allure test report'
-          state: 'success'
-          sha: ${{ github.event.pull_request.head.sha }}
-          target_url: https://andgineer.github.io/bitwarden-import-msecure/${{ github.run_number }}
-
     - name: Coverage comment
       id: coverage_comment
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
@@ -119,3 +109,12 @@ jobs:
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       uses: codecov/codecov-action@v3
 
+    - name: Post the link to the Allure report
+      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
+      uses: Sibz/github-status-action@v1
+      with:
+          authToken: ${{secrets.GITHUB_TOKEN}}
+          context: 'Allure test report'
+          state: 'success'
+          sha: ${{ github.event.pull_request.head.sha }}
+          target_url: https://andgineer.github.io/bitwarden-import-msecure/${{ github.run_number }}
