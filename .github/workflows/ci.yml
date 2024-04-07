@@ -87,7 +87,7 @@ jobs:
         destination_dir: allure
 
     - name: Post the link to the report
-      if: always()
+      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       uses: Sibz/github-status-action@v1
       with:
         authToken: ${{ secrets.GITHUB_TOKEN }}
