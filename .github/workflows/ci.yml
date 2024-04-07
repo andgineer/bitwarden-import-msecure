@@ -68,12 +68,14 @@ jobs:
       run: "${{ env.PYTEST_CMD }} --alluredir=./allure-results"
 
     - name: Build Allure test report
-      uses: simple-elf/allure-report-action@v1.7
+      uses: simple-elf/allure-report-action@v1.9
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       with:
         gh_pages: gh-pages
         allure_history: allure-history
         allure_results: allure-results
+        subfolder: allure
+        keep_reports: 100
 
     - name: Publish Allure test report
       uses: peaceiris/actions-gh-pages@v3
@@ -81,7 +83,17 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
-        publish_dir: allure-history
+        publish_dir: allure/allure-history
+
+    - name: Post the link to the Allure report
+      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
+      uses: Sibz/github-status-action@v1
+      with:
+          authToken: ${{secrets.GITHUB_TOKEN}}
+          context: 'Allure test report'
+          state: 'success'
+          sha: ${{ github.event.pull_request.head.sha }}
+          target_url: https://andgineer.github.io/bitwarden-import-msecure/${{ github.run_number }}
 
     - name: Coverage comment
       id: coverage_comment
