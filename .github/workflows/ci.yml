@@ -86,6 +86,16 @@ jobs:
         publish_dir: allure-history/allure
         destination_dir: allure
 
+    - name: Post the link to the report
+      if: always()
+      uses: Sibz/github-status-action@v1
+      with:
+        authToken: ${{ secrets.GITHUB_TOKEN }}
+        context: 'Allure test report'
+        state: 'success'
+        sha: ${{ github.sha }}
+        target_url: https://andgineer.github.io/bitwarden-import-msecure/allure/${{ github.run_number }}
+
     - name: Coverage comment
       id: coverage_comment
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
