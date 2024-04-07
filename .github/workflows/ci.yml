@@ -86,15 +86,18 @@ jobs:
         publish_dir: allure-history/allure
         destination_dir: allure
 
-    - name: Post the link to the report
+    - name: Post the link to the Allure report
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
-      uses: Sibz/github-status-action@v1
+      run: |
+        ALLURE_REPORT_URL="https://andgineer.github.io/bitwarden-import-msecure/allure/${{ github.run_number }}"
+        echo "$ALLURE_REPORT_URL" > allure-report-url.txt
+
+    - name: Upload Allure Report URL
+      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
+      uses: actions/upload-artifact@v3
       with:
-        authToken: ${{ secrets.GITHUB_TOKEN }}
-        context: 'Allure test report'
-        state: 'success'
-        sha: ${{ github.sha }}
-        target_url: https://andgineer.github.io/bitwarden-import-msecure/allure/${{ github.run_number }}
+        name: Allure Report URL
+        path: allure-report-url.txt
 
     - name: Coverage comment
       id: coverage_comment
