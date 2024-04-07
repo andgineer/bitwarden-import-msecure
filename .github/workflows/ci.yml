@@ -27,7 +27,6 @@ jobs:
         --junitxml=pytest.xml 
         --cov-report=term-missing:skip-covered 
         --cov=src
-        --alluredir=./allure-results
         tests/
     runs-on: ${{ matrix.platform }}
     permissions:
@@ -44,7 +43,7 @@ jobs:
 
     - name: Load Allure test report history
       uses: actions/checkout@v4
-      if: always()
+      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       continue-on-error: true
       with:
         ref: gh-pages
@@ -61,11 +60,16 @@ jobs:
       run: uv pip install -r requirements.dev.txt
 
     - name: Test with pytest
+      if: ${{ matrix.python-version != env.PRIMARY_PYTHON_VERSION || matrix.platform != env.PRIMARY_PLATFORM }}
       run: ${{ env.PYTEST_CMD }}
+
+    - name: Test with pytest and Allure report
+      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
+      run: ""${{ env.PYTEST_CMD }} --alluredir=./allure-results"
 
     - name: Build Allure test report
       uses: simple-elf/allure-report-action@v1.7
-      if: always()
+      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       with:
         gh_pages: gh-pages
         allure_history: allure-history
@@ -73,7 +77,7 @@ jobs:
 
     - name: Publish Allure test report
       uses: peaceiris/actions-gh-pages@v3
-      if: always()
+      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
