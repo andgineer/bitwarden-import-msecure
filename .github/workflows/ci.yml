@@ -65,7 +65,7 @@ jobs:
 
     - name: Test with pytest and Allure report
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
-      run: ""${{ env.PYTEST_CMD }} --alluredir=./allure-results"
+      run: "${{ env.PYTEST_CMD }} --alluredir=./allure-results"
 
     - name: Build Allure test report
       uses: simple-elf/allure-report-action@v1.7
