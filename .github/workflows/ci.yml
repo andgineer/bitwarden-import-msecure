@@ -72,18 +72,18 @@ jobs:
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       with:
         gh_pages: gh-pages
-        allure_history: allure-history
+        allure_history: gh-pages/allure-history
         allure_results: allure-results
         keep_reports: 100
 
     - name: Publish Allure test report
-      uses: peaceiris/actions-gh-pages@v3
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_branch: gh-pages
-        publish_dir: allure-history
-        destination_dir: allure
+        branch: gh-pages
+        folder: gh-pages/allure-history
+        target-folder: allure-history
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Post the link to the Allure report
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
