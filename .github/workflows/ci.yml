@@ -22,7 +22,7 @@ jobs:
     env:
       PRIMARY_PYTHON_VERSION: '3.12'
       PRIMARY_PLATFORM: 'ubuntu-latest'
-      PYTEST_CMD: >
+      PYTEST_CMD: >-
         python -m pytest 
         --junitxml=pytest.xml 
         --cov-report=term-missing:skip-covered 
