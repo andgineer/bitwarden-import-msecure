@@ -86,18 +86,31 @@ jobs:
         publish_dir: allure-history/allure
         destination_dir: allure
 
+#    - name: Post the link to the Allure report
+#      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
+#      run: |
+#        ALLURE_REPORT_URL="https://andgineer.github.io/bitwarden-import-msecure/allure/${{ github.run_number }}"
+#        echo "$ALLURE_REPORT_URL" > allure-report-url.txt
+#
+#    - name: Upload Allure Report URL
+#      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: Allure Report URL
+#        path: allure-report-url.txt
     - name: Post the link to the Allure report
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
+      id: post-allure-report
       run: |
         ALLURE_REPORT_URL="https://andgineer.github.io/bitwarden-import-msecure/allure/${{ github.run_number }}"
-        echo "$ALLURE_REPORT_URL" > allure-report-url.txt
+        echo "Allure Report URL: $ALLURE_REPORT_URL" >> $GITHUB_OUTPUT
 
-    - name: Upload Allure Report URL
+    - name: Upload Allure Test Report URL
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-metadata-action@v1
       with:
-        name: Allure Report URL
-        path: allure-report-url.txt
+        name: Allure Test Report URL
+        value: ${{ steps.post-allure-report.outputs.Allure Report URL }}
 
     - name: Coverage comment
       id: coverage_comment
