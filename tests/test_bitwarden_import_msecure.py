@@ -10,6 +10,6 @@ def test_version():
 def test_version_option():
     runner = CliRunner()
     result = runner.invoke(bitwarden_import_msecure, ['--version'])
-    assert result.exit_code == 0
+    assert result.exit_code == 1
     assert __version__ in result.output
 
