@@ -67,15 +67,15 @@ jobs:
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       run: "${{ env.PYTEST_CMD }} --alluredir=./allure-results"
 
-    - name: Build Allure test report
-      uses: simple-elf/allure-report-action@v1.9
+    - name: Generate Allure test report
+      uses: andgineer/allure-report@main
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       with:
-        gh_pages: gh-pages
-        allure_history: allure-history
-        allure_results: allure-results
-        keep_reports: 100
-        subfolder: allure
+        website-source: gh-pages
+        allure-results: allure-results
+        allure-report: allure-report
+        max-reports: 100
+        report-path: allure
 
     - name: Publish Allure test report
       uses: peaceiris/actions-gh-pages@v3
@@ -83,7 +83,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
-        publish_dir: allure-history/allure
+        publish_dir: allure-report
         destination_dir: allure
 
 #    - name: Post the link to the Allure report
