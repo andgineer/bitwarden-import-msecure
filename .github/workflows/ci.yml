@@ -86,19 +86,6 @@ jobs:
         publish_dir: allure-report
         destination_dir: allure
 
-#    - name: Post the link to the Allure report
-#      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
-#      run: |
-#        ALLURE_REPORT_URL="https://andgineer.github.io/bitwarden-import-msecure/allure/${{ github.run_number }}"
-#        echo "$ALLURE_REPORT_URL" > allure-report-url.txt
-#
-#    - name: Upload Allure Report URL
-#      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: Allure Report URL
-#        path: allure-report-url.txt
-
     - name: Post the link to the Allure test report
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       run: |
