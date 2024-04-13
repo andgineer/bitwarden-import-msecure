@@ -77,9 +77,9 @@ class BitwardenJson:
             exp_month, exp_year = (
                 data["fields"].pop("Expiration Date", "").split("/") + ["", ""]
             )[:2]
-            cardholder_name = data["fields"].pop("Name on Card", "")
-            if not cardholder_name:
-                cardholder_name = data["fields"].pop("Name", "")
+            cardholder_name = data["fields"].pop("Name on Card", "") or data["fields"].pop(
+                "Name", ""
+            )
             item["card"] = {
                 "cardholderName": cardholder_name,
                 "brand": "",

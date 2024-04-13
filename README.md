@@ -30,7 +30,6 @@ For more information about a script run:
 * [Allure report](https://andgineer.github.io/bitwarden-import-msecure/allure/)
 
 ## Coverage report
-* [Codecov](https://app.codecov.io/gh/andgineer/bitwarden-import-msecure/tree/main/src%2Fbitwarden_import_msecure)
 * [Coveralls](https://coveralls.io/github/andgineer/bitwarden-import-msecure)
 
 > Created with cookiecutter using [template](https://github.com/andgineer/cookiecutter-python-package)
