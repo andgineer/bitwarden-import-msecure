@@ -8,7 +8,7 @@ BANK_FOLDER = "bank"
 
 
 def import_msecure_row(row: List[str], extra_fields_to_notes: bool) -> Dict[str, Any]:
-    """Extract data from mSecure row."""
+    """Extract data from mSecure CSV row."""
     name = row[0].split("|")[0]
     if len(row[0].split("|")) > 2:
         print(f"Warning: name has more than one '|' character :`{row[0]}`.")
