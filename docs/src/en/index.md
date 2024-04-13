@@ -10,6 +10,7 @@ Additionally, this simple Python script can be easily modified to meet your spec
 ## Installation
 
 ### Installing pipx
+
 [`pipx`](https://pypa.github.io/pipx/) creates isolated environments to avoid conflicts with existing system packages.
 
 === "MacOS"
