@@ -54,8 +54,8 @@
             </div>
         </aside>
         <h2>
-            <span class="text">45 statements &nbsp;</span>
-            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">42<span class="text"> run</span></button>
+            <span class="text">43 statements &nbsp;</span>
+            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">40<span class="text"> run</span></button>
             <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">3<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="d_1f75927bd89d960e_main_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.4.4">coverage.py v7.4.4</a>,
-            created at 2024-04-12 16:31 +0000
+            created at 2024-04-13 08:07 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"/>
@@ -159,9 +159,9 @@
     <p class="run"><span class="n"><a id="t77" href="#t77">77</a></span><span class="t">            <span class="nam">exp_month</span><span class="op">,</span> <span class="nam">exp_year</span> <span class="op">=</span> <span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t78" href="#t78">78</a></span><span class="t">                <span class="nam">data</span><span class="op">[</span><span class="str">"fields"</span><span class="op">]</span><span class="op">.</span><span class="nam">pop</span><span class="op">(</span><span class="str">"Expiration Date"</span><span class="op">,</span> <span class="str">""</span><span class="op">)</span><span class="op">.</span><span class="nam">split</span><span class="op">(</span><span class="str">"/"</span><span class="op">)</span> <span class="op">+</span> <span class="op">[</span><span class="str">""</span><span class="op">,</span> <span class="str">""</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t79" href="#t79">79</a></span><span class="t">            <span class="op">)</span><span class="op">[</span><span class="op">:</span><span class="num">2</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t80" href="#t80">80</a></span><span class="t">            <span class="nam">cardholder_name</span> <span class="op">=</span> <span class="nam">data</span><span class="op">[</span><span class="str">"fields"</span><span class="op">]</span><span class="op">.</span><span class="nam">pop</span><span class="op">(</span><span class="str">"Name on Card"</span><span class="op">,</span> <span class="str">""</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t81" href="#t81">81</a></span><span class="t">            <span class="key">if</span> <span class="key">not</span> <span class="nam">cardholder_name</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t82" href="#t82">82</a></span><span class="t">                <span class="nam">cardholder_name</span> <span class="op">=</span> <span class="nam">data</span><span class="op">[</span><span class="str">"fields"</span><span class="op">]</span><span class="op">.</span><span class="nam">pop</span><span class="op">(</span><span class="str">"Name"</span><span class="op">,</span> <span class="str">""</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t80" href="#t80">80</a></span><span class="t">            <span class="nam">cardholder_name</span> <span class="op">=</span> <span class="nam">data</span><span class="op">[</span><span class="str">"fields"</span><span class="op">]</span><span class="op">.</span><span class="nam">pop</span><span class="op">(</span><span class="str">"Name on Card"</span><span class="op">,</span> <span class="str">""</span><span class="op">)</span> <span class="key">or</span> <span class="nam">data</span><span class="op">[</span><span class="str">"fields"</span><span class="op">]</span><span class="op">.</span><span class="nam">pop</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t81" href="#t81">81</a></span><span class="t">                <span class="str">"Name"</span><span class="op">,</span> <span class="str">""</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t82" href="#t82">82</a></span><span class="t">            <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t83" href="#t83">83</a></span><span class="t">            <span class="nam">item</span><span class="op">[</span><span class="str">"card"</span><span class="op">]</span> <span class="op">=</span> <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t84" href="#t84">84</a></span><span class="t">                <span class="str">"cardholderName"</span><span class="op">:</span> <span class="nam">cardholder_name</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t85" href="#t85">85</a></span><span class="t">                <span class="str">"brand"</span><span class="op">:</span> <span class="str">""</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -196,7 +196,7 @@
             <a id="nextFileLink" class="nav" href="d_1f75927bd89d960e_main_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.4.4">coverage.py v7.4.4</a>,
-            created at 2024-04-12 16:31 +0000
+            created at 2024-04-13 08:07 +0000
         </p>
     </div>
 </footer>
