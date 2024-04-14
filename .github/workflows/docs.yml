@@ -25,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Checkout gh-pages
+      - name: Checkout gh-pages to backup Allure test reports
         uses: actions/checkout@v4
         with:
           ref: gh-pages
@@ -42,9 +42,8 @@ jobs:
           ./scripts/build-docs.sh
           ghp-import --no-jekyll --push --force site
 
-      - name: Publish Allure test report
+      - name: Restore Allure test reports folder
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
