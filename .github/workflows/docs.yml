@@ -24,12 +24,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PRIMARY_PYTHON_VERSION  }}
       - run: |
           pip install uv
           uv pip install ghp-import -r requirements.dev.txt --python=${{ env.PRIMARY_PYTHON_VERSION }}
-      - run: ./scripts/build-docs.sh
+
       - run: |
+          ./scripts/build-docs.sh
           ghp-import --no-jekyll --push --force site
+
+      - name: Restore allure directory
+        run: |
+          git fetch origin
+          git checkout gh-pages
+          mkdir -p allure
+          mv gh-pages/allure/* allure/
+          git add allure/
+          git commit -m "Restore allure directory"
+          git push origin gh-pages

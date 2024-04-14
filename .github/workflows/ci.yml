@@ -43,17 +43,9 @@ jobs:
 
     - name: Load Allure test report history
       uses: actions/checkout@v4
-      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
-      continue-on-error: true
       with:
         ref: gh-pages
         path: gh-pages
-
-    - name: Debug
-      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
-      run: |
-        echo "ls gh-pages/allure"
-        ls gh-pages/allure
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
