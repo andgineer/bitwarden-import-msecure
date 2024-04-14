@@ -38,6 +38,7 @@ Additionally, this simple Python script can be easily modified to meet your spec
     ```
 
 ### Installing `bitwarden-import-msecure`:
+
 In the terminal (command prompt), execute:
 
 ```bash
