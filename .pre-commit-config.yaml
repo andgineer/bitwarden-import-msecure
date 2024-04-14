@@ -4,6 +4,7 @@ exclude: |
         site/|
         docs/|
         pyproject.toml|
+        tasks.py|
         __about__.py
     )
 repos:

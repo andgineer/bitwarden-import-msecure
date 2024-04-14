@@ -68,7 +68,8 @@ jobs:
       run: "${{ env.PYTEST_CMD }} --alluredir=./allure-results"
 
     - name: Generate Allure test report
-      uses: andgineer/allure-report@v1.2.0
+      uses: andgineer/allure-report@main
+      id: allure-report
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       with:
         website-source: gh-pages
@@ -89,10 +90,14 @@ jobs:
     - name: Post the link to the Allure test report
       if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       run: |
-        ALLURE_REPORT_URL="https://andgineer.github.io/bitwarden-import-msecure/allure/${{ github.run_number }}"
+        echo "ls gh-pages"
+        ls gh-pages
+        echo "ls gh-pages/allure"
+        ls gh-pages/allure
+        
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "## Allure test report" >> $GITHUB_STEP_SUMMARY
-        echo "[Allure test report: ${{ github.run_number }}]($ALLURE_REPORT_URL)" >> $GITHUB_STEP_SUMMARY
+        echo "[Allure test report: ${{ github.run_number }}](${{ steps.allure-report.outputs.REPORT_URL }})" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
 
     - name: Coverage comment
