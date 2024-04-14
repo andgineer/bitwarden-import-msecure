@@ -47,6 +47,7 @@ jobs:
           git fetch origin
           git checkout gh-pages
           mkdir -p allure
+          mkdir -p gh-pages/allure
           mv gh-pages/allure/* allure/
           git add allure/
           git commit -m "Restore allure directory"
