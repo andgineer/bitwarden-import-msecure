@@ -41,12 +41,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Load Allure test report history
-      uses: actions/checkout@v4
-      with:
-        ref: gh-pages
-        path: gh-pages
-
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
@@ -62,18 +56,25 @@ jobs:
       run: ${{ env.PYTEST_CMD }}
 
     - name: Test with pytest and Allure report
-      if: ${{ matrix.platform == env.PRIMARY_PLATFORM }}
+      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       run: "${{ env.PYTEST_CMD }} --alluredir=./allure-results"
+
+    - name: Load Allure test report history
+      uses: actions/checkout@v4
+      if: ${{ always() && $matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
+      with:
+        ref: gh-pages
+        path: gh-pages
 
     - name: Generate Allure test report
       uses: andgineer/allure-report@v1.4
       id: allure-report
-      if: ${{ always() && (matrix.platform == 'ubuntu-latest') }}
+      if: ${{ always() && $matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       with:
         website-source: gh-pages
         allure-results: allure-results
         reports-site: reports-site
-        reports-site-path: builds/tests/${{ matrix.platform }}_${{ matrix.python-version }}
+        reports-site-path: builds/tests
 
     - name: Publish Allure test report
       uses: peaceiris/actions-gh-pages@v3
@@ -87,10 +88,7 @@ jobs:
     - name: Post the link to the Allure test report
       if: ${{ always() && (steps.allure-report.outcome == 'success') }}
       run: |
-        echo "ls gh-pages/allure"
-        ls gh-pages/allure
-        
-        echo "[Allure test report ${{ matrix.platform }}/${{ matrix.python-version }}](${{ steps.allure-report.outputs.REPORT_URL }})" >> $GITHUB_STEP_SUMMARY
+        echo "[Allure test report](${{ steps.allure-report.outputs.REPORT_URL }})" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
 
     - name: Coverage comment
