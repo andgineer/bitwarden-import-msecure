@@ -66,34 +66,31 @@ jobs:
       run: "${{ env.PYTEST_CMD }} --alluredir=./allure-results"
 
     - name: Generate Allure test report
-      uses: andgineer/allure-report@main
+      uses: andgineer/allure-report@v1.4
       id: allure-report
-      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
+      if: always()
       with:
         website-source: gh-pages
         allure-results: allure-results
-        allure-report: allure-report
-        max-reports: 100
-        report-path: allure
+        reports-site: reports-site
+        reports-site-path: builds/tests/${{ matrix.platform }}_${{ matrix.python-version }}
 
     - name: Publish Allure test report
       uses: peaceiris/actions-gh-pages@v3
-      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
+      if: ${{ needs.allure-report.result == 'success' }}
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
-        publish_dir: allure-report
-        destination_dir: allure
+        publish_dir: reports-site
+        destination_dir: builds/tests/${{ matrix.platform }}_${{ matrix.python-version }}
 
     - name: Post the link to the Allure test report
-      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
+      if: ${{ needs.allure-report.result == 'success' }}
       run: |
         echo "ls gh-pages/allure"
         ls gh-pages/allure
         
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "## Allure test report" >> $GITHUB_STEP_SUMMARY
-        echo "[Allure test report: ${{ github.run_number }}](${{ steps.allure-report.outputs.REPORT_URL }})" >> $GITHUB_STEP_SUMMARY
+        echo "[Allure test report ${{ matrix.platform }}/${{ matrix.python-version }}](${{ steps.allure-report.outputs.REPORT_URL }})" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
 
     - name: Coverage comment

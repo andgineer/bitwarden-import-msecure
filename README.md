@@ -27,7 +27,7 @@ For more information about a script run:
 
 ## Allure test report
 
-* [Allure report](https://andgineer.github.io/bitwarden-import-msecure/allure/)
+* [Allure report](https://andgineer.github.io/bitwarden-import-msecure/builds/tests/)
 
 ## Coverage report
 * [Coveralls](https://coveralls.io/github/andgineer/bitwarden-import-msecure)
