@@ -83,7 +83,7 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
         publish_dir: reports-site
-        destination_dir: builds/tests/${{ matrix.platform }}_${{ matrix.python-version }}
+        destination_dir: builds/tests
 
     - name: Post the link to the Allure test report
       if: ${{ always() && (steps.allure-report.outcome == 'success') }}
