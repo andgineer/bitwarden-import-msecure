@@ -47,5 +47,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: gh-pages/allure
-          destination_dir: allure
+          publish_dir: gh-pages/builds
+          destination_dir: builds

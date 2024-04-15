@@ -62,13 +62,13 @@ jobs:
       run: ${{ env.PYTEST_CMD }}
 
     - name: Test with pytest and Allure report
-      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
+      if: ${{ matrix.platform == env.PRIMARY_PLATFORM }}
       run: "${{ env.PYTEST_CMD }} --alluredir=./allure-results"
 
     - name: Generate Allure test report
       uses: andgineer/allure-report@v1.4
       id: allure-report
-      if: always()
+      if: ${{ always() && (matrix.platform == 'ubuntu-latest') }}
       with:
         website-source: gh-pages
         allure-results: allure-results
@@ -77,7 +77,7 @@ jobs:
 
     - name: Publish Allure test report
       uses: peaceiris/actions-gh-pages@v3
-      if: ${{ needs.allure-report.result == 'success' }}
+      if: ${{ always() && (needs.allure-report.result == 'success') }}
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
@@ -85,7 +85,7 @@ jobs:
         destination_dir: builds/tests/${{ matrix.platform }}_${{ matrix.python-version }}
 
     - name: Post the link to the Allure test report
-      if: ${{ needs.allure-report.result == 'success' }}
+      if: ${{ always() && (needs.allure-report.result == 'success') }}
       run: |
         echo "ls gh-pages/allure"
         ls gh-pages/allure
