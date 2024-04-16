@@ -75,13 +75,12 @@ jobs:
         path: gh-pages-dir
 
     - name: Generate Allure test report
-      uses: andgineer/allure-report@v1.5
+      uses: andgineer/allure-report@main
       id: allure-report
       if: always()
       with:
-        website-source: gh-pages-dir
         allure-results: allure-results
-        reports-site: reports-site
+        website: gh-pages-dir
         reports-site-path: builds/tests
 
     - name: Publish Allure test report
