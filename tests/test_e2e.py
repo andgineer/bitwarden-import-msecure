@@ -53,7 +53,7 @@ def test_bitwarden_import_msecure_existing_output_file(tmpdir, msecure_export, b
     runner = CliRunner()
     result = runner.invoke(bitwarden_import_msecure, [str(input_file), str(output_file)])
     assert result.exit_code == 1
-    assert "Output file" in result.output and "already exists" in result.output
+    assert "Output file" in result.output and "already exists-" in result.output
     assert result.exception
     assert isinstance(result.exception, SystemExit)
     assert result.exception.code == 1
