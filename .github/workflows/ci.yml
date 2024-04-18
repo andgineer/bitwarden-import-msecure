@@ -93,14 +93,6 @@ jobs:
         publish_dir: ${{ steps.allure-report.outputs.REPORTS_SITE }}
         destination_dir: ${{ steps.allure-report.outputs.REPORTS_SITE_PATH }}
 
-    - name: Post the link to the Allure test report
-      if: ${{ always() && (steps.allure-report.outcome == 'success') }}
-      run: |
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "## Allure test report" >> $GITHUB_STEP_SUMMARY
-        echo "[Allure test report](${{ steps.allure-report.outputs.REPORT_URL }})" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-
     - name: Coverage comment
       id: coverage_comment
       if: always()
