@@ -2,7 +2,9 @@
 [![Coverage](https://raw.githubusercontent.com/andgineer/bitwarden-import-msecure/python-coverage-comment-action-data/badge.svg)](https://htmlpreview.github.io/?https://github.com/andgineer/bitwarden-import-msecure/blob/python-coverage-comment-action-data/htmlcov/index.html)
 # bitwarden-import-msecure
 
-Migration from mSecure to Bitwarden 
+Migration from mSecure to Bitwarden.
+
+More flexible than the built-in Bitwarden import tool.
 
 # Documentation
 

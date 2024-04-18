@@ -76,7 +76,7 @@ jobs:
         path: gh-pages-dir
 
     - name: Generate Allure test report
-      uses: andgineer/allure-report@1.7
+      uses: andgineer/allure-report@main
       id: allure-report
       if: always()
       with:
@@ -90,8 +90,8 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
-        publish_dir: ${{ steps.allure-report.outputs.REPORTS_SITE }}
-        destination_dir: ${{ steps.allure-report.outputs.REPORTS_SITE_PATH }}
+        publish_dir: ${{ steps.allure-report.outputs.reports-site }}
+        destination_dir: ${{ steps.allure-report.outputs.reports-site-path }}
 
     - name: Coverage comment
       id: coverage_comment
