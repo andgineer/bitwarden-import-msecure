@@ -3,6 +3,9 @@ from click.testing import CliRunner
 from bitwarden_import_msecure.main import bitwarden_import_msecure
 
 
+UPDATE_EXPECTED_OUTPUT = False  # (!) Regenerate expected output files, but be sure to check the changes
+
+
 def assert_files_context_is_equal(file_path1, file_path2):
     """Compare the content of two files, abstracting away platform differences in newline characters."""
     with open(file_path1, 'r', newline=None, encoding='utf-8') as f1, open(file_path2, 'r', newline=None,
@@ -25,7 +28,8 @@ def test_bitwarden_import_msecure_default_output(tmpdir, msecure_export, bitward
 
     output_file = tmpdir.join("bitwarden.json")
 
-    # bitwarden_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
+    if UPDATE_EXPECTED_OUTPUT:
+        bitwarden_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
     assert_files_context_is_equal(output_file, bitwarden_file)
 
 
@@ -39,7 +43,8 @@ def test_bitwarden_import_msecure_note_mode_default_output(tmpdir, msecure_expor
 
     output_file = tmpdir.join("bitwarden.json")
 
-    # bitwarden_notes_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
+    if UPDATE_EXPECTED_OUTPUT:
+        bitwarden_notes_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
     assert_files_context_is_equal(output_file, bitwarden_notes_file)
 
 
@@ -70,7 +75,8 @@ def test_bitwarden_import_msecure_to_output_file(tmpdir, msecure_export, bitward
     result = runner.invoke(bitwarden_import_msecure, [str(input_file), str(output_file), "--force"])
     assert result.exit_code == 0
 
-    # bitwarden_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
+    if UPDATE_EXPECTED_OUTPUT:
+        bitwarden_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
     assert_files_context_is_equal(output_file, bitwarden_file)
     assert input_file.read() == msecure_export  # Ensure input file remains unchanged
 
@@ -85,7 +91,8 @@ def test_bitwarden_import_msecure_default_csv_output(tmpdir, msecure_export, bit
 
     output_file = tmpdir.join("bitwarden.csv")
 
-    # bitwarden_csv_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
+    if UPDATE_EXPECTED_OUTPUT:
+        bitwarden_csv_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
     assert_files_context_is_equal(output_file, bitwarden_csv_file)
 
 
@@ -99,5 +106,6 @@ def test_bitwarden_import_msecure_note_mode_default_csv_output(tmpdir, msecure_e
 
     output_file = tmpdir.join("bitwarden.csv")
 
-    # bitwarden_notes_csv_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
+    if UPDATE_EXPECTED_OUTPUT:
+        bitwarden_notes_csv_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
     assert_files_context_is_equal(output_file, bitwarden_notes_csv_file)

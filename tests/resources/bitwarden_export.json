@@ -23,7 +23,12 @@
             "collectionIds": null,
             "login": {
                 "fido2Credentials": [],
-                "uris": [],
+                "uris": [
+                    {
+                        "match": "null",
+                        "uri": "https://www.openstreetmap.org"
+                    }
+                ],
                 "username": "andrey@sorokin.engineer",
                 "password": "my-cool-password",
                 "totp": null
@@ -46,7 +51,12 @@
             "collectionIds": null,
             "login": {
                 "fido2Credentials": [],
-                "uris": [],
+                "uris": [
+                    {
+                        "match": "null",
+                        "uri": "vk.com"
+                    }
+                ],
                 "username": "+1 555 555 5555",
                 "password": "",
                 "totp": null
@@ -69,7 +79,12 @@
             "collectionIds": null,
             "login": {
                 "fido2Credentials": [],
-                "uris": [],
+                "uris": [
+                    {
+                        "match": "null",
+                        "uri": "https://airtable.com/"
+                    }
+                ],
                 "username": "andrey@sorokin.engineer",
                 "password": "my-cool-password",
                 "totp": null
@@ -123,7 +138,12 @@
             "collectionIds": null,
             "login": {
                 "fido2Credentials": [],
-                "uris": [],
+                "uris": [
+                    {
+                        "match": "null",
+                        "uri": "hub.docker.com"
+                    }
+                ],
                 "username": "sorokin.engineer",
                 "password": "my-cool-password",
                 "totp": null

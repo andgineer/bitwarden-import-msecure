@@ -68,7 +68,12 @@ class BitwardenJson:
         if data["type"] == "login":
             item["login"] = {
                 "fido2Credentials": [],
-                "uris": [],
+                "uris": [
+                    {
+                        "match": "null",
+                        "uri": data["login_uri"],
+                    }
+                ],
                 "username": data["login_username"],
                 "password": data["login_password"],
                 "totp": None,
