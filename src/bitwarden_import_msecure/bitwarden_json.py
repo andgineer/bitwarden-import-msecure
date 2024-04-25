@@ -70,7 +70,7 @@ class BitwardenJson:
                 "fido2Credentials": [],
                 "uris": [
                     {
-                        "match": "null",
+                        "match": None,
                         "uri": data["login_uri"],
                     }
                 ],
@@ -78,6 +78,8 @@ class BitwardenJson:
                 "password": data["login_password"],
                 "totp": None,
             }
+            if not data["login_uri"]:
+                item["login"]["uris"] = []
         if data["type"] == "card":
             exp_month, exp_year = (
                 data["fields"].pop("Expiration Date", "").split("/") + ["", ""]

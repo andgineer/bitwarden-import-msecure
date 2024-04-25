@@ -25,7 +25,7 @@
                 "fido2Credentials": [],
                 "uris": [
                     {
-                        "match": "null",
+                        "match": null,
                         "uri": "https://www.openstreetmap.org"
                     }
                 ],
@@ -53,7 +53,7 @@
                 "fido2Credentials": [],
                 "uris": [
                     {
-                        "match": "null",
+                        "match": null,
                         "uri": "vk.com"
                     }
                 ],
@@ -81,7 +81,7 @@
                 "fido2Credentials": [],
                 "uris": [
                     {
-                        "match": "null",
+                        "match": null,
                         "uri": "https://airtable.com/"
                     }
                 ],
@@ -140,7 +140,7 @@
                 "fido2Credentials": [],
                 "uris": [
                     {
-                        "match": "null",
+                        "match": null,
                         "uri": "hub.docker.com"
                     }
                 ],
