@@ -1,7 +1,6 @@
-from click.testing import CliRunner
-
+from unittest.mock import patch
 from bitwarden_import_msecure.main import bitwarden_import_msecure
-
+from tests.conftest import fixed_uuid
 
 UPDATE_EXPECTED_OUTPUT = False  # (!) Regenerate expected output files, but be sure to check the changes
 
@@ -22,7 +21,8 @@ def test_bitwarden_import_msecure_default_output(runner, tmpdir, msecure_export,
     input_file = tmpdir.join("input.csv")
     input_file.write(msecure_export)
 
-    result = runner.invoke(bitwarden_import_msecure, [str(input_file)])
+    with patch('uuid.uuid4', return_value=fixed_uuid):  # workaround for allure's AttributeError: 'NoneType' object has no attribute 'status'
+        result = runner.invoke(bitwarden_import_msecure, [str(input_file)])
     assert result.exit_code == 0
 
     output_file = tmpdir.join("bitwarden.json")
@@ -36,7 +36,8 @@ def test_bitwarden_import_msecure_note_mode_default_output(runner, tmpdir, msecu
     input_file = tmpdir.join("input.csv")
     input_file.write(msecure_export)
 
-    result = runner.invoke(bitwarden_import_msecure, [str(input_file), "--extra-fields", "notes"])
+    with patch('uuid.uuid4', return_value=fixed_uuid):  # workaround for allure's AttributeError: 'NoneType' object has no attribute 'status'
+        result = runner.invoke(bitwarden_import_msecure, [str(input_file), "--extra-fields", "notes"])
     assert result.exit_code == 0
 
     output_file = tmpdir.join("bitwarden.json")
@@ -53,7 +54,8 @@ def test_bitwarden_import_msecure_existing_output_file(runner, tmpdir, msecure_e
     output_file = tmpdir.join("output.txt")
     output_file.write("existing data")
 
-    result = runner.invoke(bitwarden_import_msecure, [str(input_file), str(output_file)])
+    with patch('uuid.uuid4', return_value=fixed_uuid):  # workaround for allure's AttributeError: 'NoneType' object has no attribute 'status'
+        result = runner.invoke(bitwarden_import_msecure, [str(input_file), str(output_file)])
     assert result.exit_code == 1
     assert "Output file" in result.output and "already exists" in result.output.replace("\n", "")
     assert result.exception
@@ -68,8 +70,9 @@ def test_bitwarden_import_msecure_to_output_file(runner, tmpdir, msecure_export,
     output_file = tmpdir.join("output.txt")
     output_file.write("existing data")
 
-    result = runner.invoke(bitwarden_import_msecure, [str(input_file), str(output_file), "--force"])
-    assert result.exit_code == 0
+    with patch('uuid.uuid4', return_value=fixed_uuid):  # workaround for allure's AttributeError: 'NoneType' object has no attribute 'status'
+        result = runner.invoke(bitwarden_import_msecure, [str(input_file), str(output_file), "--force"])
+        assert result.exit_code == 0
 
     if UPDATE_EXPECTED_OUTPUT:
         bitwarden_file.write_text(output_file.read_text(encoding="utf8"))

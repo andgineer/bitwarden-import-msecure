@@ -11,5 +11,5 @@ pygments==2.17.2
 rich==13.7.1
     # via rich-click
 rich-click==1.7.4
-typing-extensions==4.10.0
+typing-extensions==4.11.0
     # via rich-click

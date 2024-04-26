@@ -25,10 +25,10 @@ def patch(input_path: Path, output_path: Path) -> None:
     If you migrated to Bitwarden some time ago and cannot just drop all records
     and import them again, use option `--patch`:
 
-    - process mSecure export `mSecure Export File.csv` with new `bitwarden-import-msecure`:
+    - process the mSecure export `mSecure Export File.csv` with the new `bitwarden-import-msecure`:
         `bitwarden-import-msecure "mSecure Export File.csv" bitwarden.json`
-    - export json from Bitwarden, lets name result as `bitwarden_new.json`
-    - patch this export with additional data from mSecure export:
+    - export json from Bitwarden, let's name the result as `bitwarden_new.json`
+    - patch this export with additional data from the mSecure export:
         `bitwarden-import-msecure bitwarden.json bitwarden_new.json --patch`
     - now you have `bitwarden_new.json` with all necessary changes, import it to Bitwarden
     """
