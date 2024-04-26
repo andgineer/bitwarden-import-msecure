@@ -1,14 +1,19 @@
-"""Fix errors in old exports."""
+"""Conversion logic."""
 
+import csv
 import json
 from pathlib import Path
 
 from rich.console import Console
 from rich.panel import Panel
-from rich.syntax import Syntax
+from rich.markdown import Markdown
 from rich.theme import Theme
 
 import rich_click as click
+
+from bitwarden_import_msecure.bitwarden_csv import BitwardenCsv
+from bitwarden_import_msecure.bitwarden_json import BitwardenJson
+from bitwarden_import_msecure.msecure import import_msecure_row
 
 
 def patch(input_path: Path, output_path: Path) -> None:
@@ -67,7 +72,7 @@ def patch(input_path: Path, output_path: Path) -> None:
             click.echo(f"Added {replaced} URLs.")
 
             file.seek(0)
-            json.dump(output_data, file, indent=2)
+            json.dump(output_data, file, indent=4)
             file.truncate()
 
     except json.JSONDecodeError as e:
@@ -78,7 +83,7 @@ def patch(input_path: Path, output_path: Path) -> None:
         return
 
 
-def show_help() -> None:
+def patch_help() -> None:
     """Show help message for `--patch` option."""
     custom_theme = Theme(
         {
@@ -93,7 +98,27 @@ def show_help() -> None:
     )
     console = Console(theme=custom_theme)
     assert patch.__doc__
-    doc = "\n".join([line.lstrip() for line in patch.__doc__.split("\n")])
-    syntax = Syntax(doc, "markdown", word_wrap=True, background_color="default")
-    panel = Panel(syntax, border_style="gray46")
+    lines = [line.strip() for line in patch.__doc__.strip().split("\n")]
+    title = lines[0]
+    markdown_content = "\n".join(lines[2:])  # Skip title and empty line
+    markdown = Markdown(markdown_content)
+    panel = Panel(markdown, title=title, border_style="gray46")
+
     console.print(panel)
+
+
+def convert(
+    input_path: Path, output_path: Path, *, output_format: str, extra_fields_to_notes: bool
+) -> None:
+    """Convert mSecure export to Bitwarden format."""
+    if output_format == "csv":
+        writer = BitwardenCsv(output_path)
+    else:
+        writer = BitwardenJson(output_path)
+    with input_path.open(newline="", encoding="utf-8") as infile:
+        reader = csv.reader(infile, delimiter=",")
+        for row in reader:
+            if row and not row[0].startswith("mSecure"):
+                data = import_msecure_row(row, extra_fields_to_notes)
+                writer.write_record(data)
+    writer.close()

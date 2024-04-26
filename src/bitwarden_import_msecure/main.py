@@ -1,21 +1,26 @@
 """Bitwarden Import mSecure Export."""
 
-import csv
 from pathlib import Path
 
 import rich_click as click
+from rich.console import Console
 
-from bitwarden_import_msecure.bitwarden_csv import BitwardenCsv
-from bitwarden_import_msecure.bitwarden_json import BitwardenJson
-from bitwarden_import_msecure.msecure import import_msecure_row
 from bitwarden_import_msecure.__about__ import __version__
-from bitwarden_import_msecure import patch_export
+from bitwarden_import_msecure import msecure_to_bitwarden
 
 click.rich_click.USE_MARKDOWN = True
 
 
 OUTPUT_FILE_DEFAULT = "bitwarden"
 NOTES_MODE = "notes"
+
+
+def error(message: str, abort: bool = True) -> None:
+    """Print error message and exit."""
+    console = Console()
+    console.print(message, style="bold red")
+    if abort:
+        raise click.Abort()
 
 
 @click.command()
@@ -61,17 +66,17 @@ def bitwarden_import_msecure(  # pylint: disable=too-many-arguments
     - Import the processed file into Bitwarden
     """
     if patch_help:
-        patch_export.show_help()
+        msecure_to_bitwarden.patch_help()
         return
 
+    if not input_file:
+        error("No input file provided.")
     input_path = Path(input_file)
     if not input_path.exists():
-        click.echo(f"Input file `{input_path}` does not exist.")
-        raise click.Abort()
+        error(f"Input file `{input_path}` does not exist.")
 
     if force and patch:
-        click.echo("--force and --patch cannot be used simultaneously.")
-        raise click.Abort()
+        error("--force and --patch cannot be used simultaneously.")
 
     output_path = (
         Path(output_file)
@@ -80,28 +85,25 @@ def bitwarden_import_msecure(  # pylint: disable=too-many-arguments
     )
 
     if patch:
-        if not output_path.exists():
-            click.echo(f"Cannot patch `{output_path}` - does not exists.")
+        if output_format != "json":
+            error("Patching is only supported for JSON format.", abort=False)
+            msecure_to_bitwarden.patch_help()
             raise click.Abort()
-        patch_export.patch(input_path, output_path)
+        if not output_path.exists():
+            error(f"To patch output file `{output_path}` it should exist.", abort=False)
+            msecure_to_bitwarden.patch_help()
+            raise click.Abort()
+        msecure_to_bitwarden.patch(input_path, output_path)
     else:
         if output_path.exists() and not force:
-            click.echo(f"Output file `{output_path}` already exists. Use --force to overwrite.")
-            raise click.Abort()
+            error(f"Output file `{output_path}` already exists. Use --force to overwrite.")
 
-        if output_format == "csv":
-            writer = BitwardenCsv(output_path)
-        else:
-            writer = BitwardenJson(output_path)
-
-        with input_path.open(newline="", encoding="utf-8") as infile:
-            reader = csv.reader(infile, delimiter=",")
-            for row in reader:
-                if row and not row[0].startswith("mSecure"):
-                    data = import_msecure_row(row, extra_fields == NOTES_MODE)
-                    writer.write_record(data)
-
-        writer.close()
+        msecure_to_bitwarden.convert(
+            input_path,
+            output_path,
+            output_format=output_format,
+            extra_fields_to_notes=extra_fields == NOTES_MODE,
+        )
     click.echo(f"File to import into Bitwarden saved to `{output_path}`")
 
 

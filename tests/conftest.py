@@ -3,6 +3,7 @@ import uuid
 from unittest.mock import patch
 
 import pytest
+from click.testing import CliRunner
 
 
 def _get_repo_root_dir() -> str:
@@ -15,6 +16,11 @@ def _get_repo_root_dir() -> str:
 
 ROOT_DIR = _get_repo_root_dir()
 RESOURCES = pathlib.Path(f"{ROOT_DIR}/tests/resources")
+
+
+@pytest.fixture
+def runner():
+    return CliRunner()
 
 
 @pytest.fixture
@@ -31,6 +37,18 @@ fixed_uuid = uuid.UUID('12345678-1234-5678-1234-567812345678')
 def bitwarden_file():
     with patch("bitwarden_import_msecure.bitwarden_json.now_string", return_value=fixed_now), patch('uuid.uuid4', return_value=fixed_uuid):
         yield RESOURCES / "bitwarden_export.json"
+
+
+@pytest.fixture
+def bitwarden_patched_file():
+    with patch("bitwarden_import_msecure.bitwarden_json.now_string", return_value=fixed_now), patch('uuid.uuid4', return_value=fixed_uuid):
+        yield RESOURCES / "bitwarden_patched_export.json"
+
+
+@pytest.fixture
+def bitwarden_broken_file():
+    with patch("bitwarden_import_msecure.bitwarden_json.now_string", return_value=fixed_now), patch('uuid.uuid4', return_value=fixed_uuid):
+        yield RESOURCES / "bitwarden_broken_export.json"
 
 
 @pytest.fixture

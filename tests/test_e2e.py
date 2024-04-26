@@ -18,94 +18,107 @@ def assert_files_context_is_equal(file_path1, file_path2):
         assert lines1 == lines2
 
 
-def test_bitwarden_import_msecure_default_output(tmpdir, msecure_export, bitwarden_file):
+def test_bitwarden_import_msecure_default_output(runner, tmpdir, msecure_export, bitwarden_file):
     input_file = tmpdir.join("input.csv")
     input_file.write(msecure_export)
 
-    runner = CliRunner()
     result = runner.invoke(bitwarden_import_msecure, [str(input_file)])
     assert result.exit_code == 0
 
     output_file = tmpdir.join("bitwarden.json")
 
     if UPDATE_EXPECTED_OUTPUT:
-        bitwarden_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
+        bitwarden_file.write_text(output_file.read_text(encoding="utf8"))
     assert_files_context_is_equal(output_file, bitwarden_file)
 
 
-def test_bitwarden_import_msecure_note_mode_default_output(tmpdir, msecure_export, bitwarden_notes_file):
+def test_bitwarden_import_msecure_note_mode_default_output(runner, tmpdir, msecure_export, bitwarden_notes_file):
     input_file = tmpdir.join("input.csv")
     input_file.write(msecure_export)
 
-    runner = CliRunner()
     result = runner.invoke(bitwarden_import_msecure, [str(input_file), "--extra-fields", "notes"])
     assert result.exit_code == 0
 
     output_file = tmpdir.join("bitwarden.json")
 
     if UPDATE_EXPECTED_OUTPUT:
-        bitwarden_notes_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
+        bitwarden_notes_file.write_text(output_file.read_text(encoding="utf8"))
     assert_files_context_is_equal(output_file, bitwarden_notes_file)
 
 
-def test_bitwarden_import_msecure_existing_output_file(tmpdir, msecure_export, bitwarden_file):
+def test_bitwarden_import_msecure_existing_output_file(runner, tmpdir, msecure_export, bitwarden_file):
     input_file = tmpdir.join("input.txt")
     input_file.write(msecure_export)
 
     output_file = tmpdir.join("output.txt")
     output_file.write("existing data")
 
-    runner = CliRunner()
     result = runner.invoke(bitwarden_import_msecure, [str(input_file), str(output_file)])
     assert result.exit_code == 1
-    assert "Output file" in result.output and "already exists" in result.output
+    assert "Output file" in result.output and "already exists" in result.output.replace("\n", "")
     assert result.exception
     assert isinstance(result.exception, SystemExit)
     assert result.exception.code == 1
 
 
-def test_bitwarden_import_msecure_to_output_file(tmpdir, msecure_export, bitwarden_file):
+def test_bitwarden_import_msecure_to_output_file(runner, tmpdir, msecure_export, bitwarden_file):
     input_file = tmpdir.join("input.txt")
     input_file.write(msecure_export)
 
     output_file = tmpdir.join("output.txt")
     output_file.write("existing data")
 
-    runner = CliRunner()
     result = runner.invoke(bitwarden_import_msecure, [str(input_file), str(output_file), "--force"])
     assert result.exit_code == 0
 
     if UPDATE_EXPECTED_OUTPUT:
-        bitwarden_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
+        bitwarden_file.write_text(output_file.read_text(encoding="utf8"))
     assert_files_context_is_equal(output_file, bitwarden_file)
     assert input_file.read() == msecure_export  # Ensure input file remains unchanged
 
 
-def test_bitwarden_import_msecure_default_csv_output(tmpdir, msecure_export, bitwarden_csv_file):
+def test_bitwarden_import_msecure_default_csv_output(runner, tmpdir, msecure_export, bitwarden_csv_file):
     input_file = tmpdir.join("input.csv")
     input_file.write(msecure_export)
 
-    runner = CliRunner()
     result = runner.invoke(bitwarden_import_msecure, [str(input_file), "--format", "csv"])
     assert result.exit_code == 0
 
     output_file = tmpdir.join("bitwarden.csv")
 
     if UPDATE_EXPECTED_OUTPUT:
-        bitwarden_csv_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
+        bitwarden_csv_file.write_text(output_file.read_text(encoding="utf8"))
     assert_files_context_is_equal(output_file, bitwarden_csv_file)
 
 
-def test_bitwarden_import_msecure_note_mode_default_csv_output(tmpdir, msecure_export, bitwarden_notes_csv_file):
+def test_bitwarden_import_msecure_note_mode_default_csv_output(runner, tmpdir, msecure_export, bitwarden_notes_csv_file):
     input_file = tmpdir.join("input.csv")
     input_file.write(msecure_export)
 
-    runner = CliRunner()
     result = runner.invoke(bitwarden_import_msecure, [str(input_file), "--extra-fields", "notes", "--format", "csv"])
     assert result.exit_code == 0
 
     output_file = tmpdir.join("bitwarden.csv")
 
     if UPDATE_EXPECTED_OUTPUT:
-        bitwarden_notes_csv_file.write_text(output_file.read_text(encoding="utf8"))  # uncomment to refresh the expected output
+        bitwarden_notes_csv_file.write_text(output_file.read_text(encoding="utf8"))
     assert_files_context_is_equal(output_file, bitwarden_notes_csv_file)
+
+
+def test_bitwarden_patch(runner, tmpdir, msecure_export, bitwarden_file, bitwarden_broken_file, bitwarden_patched_file):
+    input_file = tmpdir.join("input.txt")
+    input_file.write(bitwarden_file.read_text(encoding="utf8"))
+
+    output_file = tmpdir.join("output.txt")
+    output_file.write(bitwarden_broken_file.read_text(encoding="utf8"))
+
+    result = runner.invoke(bitwarden_import_msecure, [str(input_file), str(output_file), "--patch"])
+    assert result.exit_code == 0
+
+    if UPDATE_EXPECTED_OUTPUT:
+        bitwarden_patched_file.write_text(output_file.read_text(encoding="utf8"))
+
+    assert_files_context_is_equal(output_file, bitwarden_patched_file)
+    assert "Added 2 URLs" in result.stdout
+
+
