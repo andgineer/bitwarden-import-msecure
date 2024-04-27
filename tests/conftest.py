@@ -31,7 +31,7 @@ def freeze():
 
 @pytest.fixture
 def runner(freeze):
-    return CliRunner()
+    return CliRunner(echo_stdin=True)
 
 
 @pytest.fixture

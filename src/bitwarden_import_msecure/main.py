@@ -15,12 +15,13 @@ OUTPUT_FILE_DEFAULT = "bitwarden"
 NOTES_MODE = "notes"
 
 
-def error(message: str, abort: bool = True) -> None:
+def error(message: str, show_patch_help: bool = True) -> None:
     """Print error message and exit."""
     console = Console()
     console.print(message, style="bold red")
-    if abort:
-        raise click.Abort()
+    if show_patch_help:
+        msecure_to_bitwarden.patch_help()
+    raise click.Abort()
 
 
 @click.command()
@@ -29,7 +30,10 @@ def error(message: str, abort: bool = True) -> None:
 @click.argument("output_file", type=click.Path(), required=False)
 @click.option("--force", is_flag=True, help="Overwrite the output file if it exists.")
 @click.option(
-    "--patch", is_flag=True, help="Fix old exports, see `--patch-help` for more details."
+    "--patch",
+    is_flag=True,
+    help="Patch Bitwarden export with data from mSecure export that previously was not imported. "
+    "See `--patch-help` for more details.",
 )
 @click.option("--patch-help", is_flag=True, help="Show help for `--patch` option.")
 @click.option(
@@ -86,13 +90,12 @@ def bitwarden_import_msecure(  # pylint: disable=too-many-arguments
 
     if patch:
         if output_format != "json":
-            error("Patching is only supported for JSON format.", abort=False)
-            msecure_to_bitwarden.patch_help()
-            raise click.Abort()
+            error("Patching is only supported for JSON format.", show_patch_help=True)
         if not output_path.exists():
-            error(f"To patch output file `{output_path}` it should exist.", abort=False)
-            msecure_to_bitwarden.patch_help()
-            raise click.Abort()
+            error(
+                f"Output file `{output_path}` does not exist. Cannot patch un-existed file.",
+                show_patch_help=True,
+            )
         msecure_to_bitwarden.patch(input_path, output_path)
     else:
         if output_path.exists() and not force:

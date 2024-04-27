@@ -108,9 +108,9 @@ def test_bitwarden_import_msecure_note_mode_default_csv_output(runner, tmpdir, m
     assert_files_context_is_equal(output_file, bitwarden_notes_csv_file)
 
 
-def test_bitwarden_patch(runner, tmpdir, msecure_export, bitwarden_file, bitwarden_broken_file, bitwarden_patched_file):
+def test_bitwarden_patch(runner, tmpdir, msecure_export, bitwarden_broken_file, bitwarden_patched_file):
     input_file = tmpdir.join("input.txt")
-    input_file.write(bitwarden_file.read_text(encoding="utf8"))
+    input_file.write(msecure_export)
 
     output_file = tmpdir.join("output.txt")
     output_file.write(bitwarden_broken_file.read_text(encoding="utf8"))

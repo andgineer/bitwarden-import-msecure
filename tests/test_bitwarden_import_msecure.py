@@ -39,7 +39,7 @@ def test_patch_without_existing_output_file(runner, tmp_path):
     ])
 
     assert result.exit_code == 1
-    assert f"To patch output file `{non_existent_output}` it should exist." in result.output.replace("\n", "")
+    assert f"Output file `{non_existent_output}` does not exist." in result.output.replace("\n", "")
 
 
 def test_patch_with_incorrect_format(runner, tmp_path):
