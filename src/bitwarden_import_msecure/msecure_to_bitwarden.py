@@ -58,7 +58,7 @@ def patch(input_path: Path, output_path: Path) -> None:
                                 if data["name"] in uri_dict:
                                     print(
                                         f"Name collision: item `{data['name']}`, "
-                                        f"has different URLs: `{uri_dict[data["name"]]}` "
+                                        f"has different URLs: `{uri_dict[data['name']]}` "
                                         f"and `{uri}`. Using first one."
                                     )
                                 else:
