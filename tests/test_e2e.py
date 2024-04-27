@@ -116,6 +116,8 @@ def test_bitwarden_patch(runner, tmpdir, msecure_export, bitwarden_broken_file, 
     output_file.write(bitwarden_broken_file.read_text(encoding="utf8"))
 
     result = runner.invoke(bitwarden_import_msecure, [str(input_file), str(output_file), "--patch"])
+    if result.exit_code != 0:
+        print(result.stdout)
     assert result.exit_code == 0
 
     if UPDATE_EXPECTED_OUTPUT:

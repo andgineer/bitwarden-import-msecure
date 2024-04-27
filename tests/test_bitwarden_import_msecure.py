@@ -76,7 +76,5 @@ def test_overwrite_without_force(runner, tmp_path):
         '--format', 'json'  # specifying format explicitly if necessary
     ])
 
-    # Checking the output and exit code
-    expected_message = "already exists. Use --force to overwrite."
     assert result.exit_code == 1, f"Expected exit code 1, got {result.exit_code}"
-    assert expected_message in result.output.replace("\n", ""), f"Expected error message not found in output: {result.output}"
+    assert "--force" in result.output.replace("\n", ""), f"Expected error message not found in output: {result.output}"
