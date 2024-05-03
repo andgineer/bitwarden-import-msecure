@@ -57,6 +57,7 @@ def compile_requirements(c: Context):
 @task(pre=[compile_requirements])
 def reqs(c: Context):
     """Upgrade requirements including pre-commit."""
+    c.run("pre-commit autoupdate")
     c.run("pip install -r requirements.dev.txt")
 
 
