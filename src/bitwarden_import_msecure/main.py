@@ -52,7 +52,7 @@ def error(message: str, show_patch_help: bool = True) -> None:
     default="json",
     help="Output file format. JSON by default. CSV is legacy format with less features.",
 )
-def bitwarden_import_msecure(  # pylint: disable=too-many-arguments
+def bitwarden_import_msecure(  # pylint: disable=too-many-arguments,too-many-positional-arguments
     input_file: str,
     output_file: str,
     force: bool,
