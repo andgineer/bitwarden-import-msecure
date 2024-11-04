@@ -52,6 +52,9 @@ jobs:
 # Build with publishing Allure report, coverage report
   primary-build:
     runs-on: ubuntu-latest
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
 
     steps:
     - uses: actions/checkout@v4
