@@ -65,7 +65,7 @@ jobs:
         python-version: ${{ env.PRIMARY_PYTHON_VERSION }}
 
     - name: Install uv environment
-      uses: andgineer/uv-venv@v1
+      uses: andgineer/uv-venv@v3
     - name: Install dependencies
       run: uv pip install -r requirements.dev.txt
     - name: Test with pytest and Allure report
