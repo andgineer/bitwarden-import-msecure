@@ -5,8 +5,8 @@ from pathlib import Path
 import rich_click as click
 from rich.console import Console
 
-from bitwarden_import_msecure.__about__ import __version__
 from bitwarden_import_msecure import msecure_to_bitwarden
+from bitwarden_import_msecure.__about__ import __version__
 
 click.rich_click.USE_MARKDOWN = True
 
@@ -52,7 +52,7 @@ def error(message: str, show_patch_help: bool = True) -> None:
     default="json",
     help="Output file format. JSON by default. CSV is legacy format with less features.",
 )
-def bitwarden_import_msecure(  # pylint: disable=too-many-arguments,too-many-positional-arguments
+def bitwarden_import_msecure(  # noqa: PLR0913
     input_file: str,
     output_file: str,
     force: bool,

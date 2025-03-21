@@ -2,7 +2,7 @@
 
 import csv
 from pathlib import Path
-from typing import Dict, Any
+from typing import Any
 
 
 class BitwardenCsv:
@@ -26,7 +26,7 @@ class BitwardenCsv:
         ]
         self.writer.writerow(header)
 
-    def write_record(self, data: Dict[str, Any]) -> None:
+    def write_record(self, data: dict[str, Any]) -> None:
         """Export data to CSV."""
         row = [
             data["folder"],

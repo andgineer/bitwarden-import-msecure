@@ -1,4 +1,3 @@
-import logging
 import pathlib
 import uuid
 from unittest.mock import patch
@@ -16,7 +15,7 @@ def _get_repo_root_dir() -> str:
 
 
 fixed_now = "2024-03-29T09:49:23.836557+01:00"
-fixed_uuid = uuid.UUID('12345678-1234-5678-1234-567812345678')
+fixed_uuid = uuid.UUID("12345678-1234-5678-1234-567812345678")
 
 ROOT_DIR = _get_repo_root_dir()
 RESOURCES = pathlib.Path(f"{ROOT_DIR}/tests/resources")
@@ -24,8 +23,7 @@ RESOURCES = pathlib.Path(f"{ROOT_DIR}/tests/resources")
 
 @pytest.fixture(scope="session")
 def freeze():
-    with patch("bitwarden_import_msecure.bitwarden_json.now_string",
-               return_value=fixed_now):
+    with patch("bitwarden_import_msecure.bitwarden_json.now_string", return_value=fixed_now):
         yield
 
 

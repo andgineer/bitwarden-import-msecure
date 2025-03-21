@@ -2,9 +2,9 @@
 
 import json
 import uuid
-from pathlib import Path
-from typing import Dict, Any
 from datetime import datetime
+from pathlib import Path
+from typing import Any
 
 BITWARDEN_TYPES = {"login": 1, "note": 2, "card": 3}
 
@@ -17,8 +17,8 @@ def now_string() -> str:
 class BitwardenJson:
     """Write Bitwarden compatible JSON file."""
 
-    data: Dict[str, Any]
-    folder_ids: Dict[str, str]
+    data: dict[str, Any]
+    folder_ids: dict[str, str]
 
     def __init__(self, output_path: Path):
         self.file = output_path
@@ -46,7 +46,7 @@ class BitwardenJson:
 
         return FolderManager()
 
-    def write_record(self, data: Dict[str, Any]) -> None:
+    def write_record(self, data: dict[str, Any]) -> None:
         """Export data to JSON."""
         now = now_string()
 
@@ -72,7 +72,7 @@ class BitwardenJson:
                     {
                         "match": None,
                         "uri": data["login_uri"],
-                    }
+                    },
                 ],
                 "username": data["login_username"],
                 "password": data["login_password"],
@@ -81,11 +81,12 @@ class BitwardenJson:
             if not data["login_uri"]:
                 item["login"]["uris"] = []
         if data["type"] == "card":
-            exp_month, exp_year = (
-                data["fields"].pop("Expiration Date", "").split("/") + ["", ""]
-            )[:2]
+            exp_month, exp_year = (data["fields"].pop("Expiration Date", "").split("/") + ["", ""])[
+                :2
+            ]
             cardholder_name = data["fields"].pop("Name on Card", "") or data["fields"].pop(
-                "Name", ""
+                "Name",
+                "",
             )
             item["card"] = {
                 "cardholderName": cardholder_name,

@@ -4,21 +4,20 @@ import csv
 import json
 from functools import reduce
 from pathlib import Path
-from typing import Dict, Optional, List
-
-from rich.console import Console
-from rich.panel import Panel
-from rich.markdown import Markdown
-from rich.theme import Theme
+from typing import Optional
 
 import rich_click as click
+from rich.console import Console
+from rich.markdown import Markdown
+from rich.panel import Panel
+from rich.theme import Theme
 
 from bitwarden_import_msecure.bitwarden_csv import BitwardenCsv
 from bitwarden_import_msecure.bitwarden_json import BitwardenJson
 from bitwarden_import_msecure.msecure import import_msecure_row
 
 
-def patch(input_path: Path, output_path: Path) -> None:
+def patch(input_path: Path, output_path: Path) -> None:  # noqa: C901
     """Patch Bitwarden export with data from mSecure export that previously was not imported
 
     Some old versions of `bitwarden-import-msecure` worked incorrectly.
@@ -39,7 +38,7 @@ def patch(input_path: Path, output_path: Path) -> None:
     - clean up mSecure export file, `bitwarden_new.json` and it's backup
     """
 
-    def get_row_dict(csv_row: List[str]) -> Optional[Dict[str, str]]:
+    def get_row_dict(csv_row: list[str]) -> Optional[dict[str, str]]:
         """Get dict from mSecure CSV line."""
         if csv_row and not csv_row[0].startswith("mSecure"):
             row = import_msecure_row(csv_row, False)
@@ -47,23 +46,24 @@ def patch(input_path: Path, output_path: Path) -> None:
                 return {"type": "login", "login_uri": row["login_uri"], "name": row["name"]}
         return None
 
-    def filter_logins_with_url(rows: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    def filter_logins_with_url(rows: list[dict[str, str]]) -> list[dict[str, str]]:
         """Filter logins with non-empty URL."""
         return list(
-            filter(lambda x: x is not None and x["type"] == "login" and x["login_uri"], rows)
+            filter(lambda x: x is not None and x["type"] == "login" and x["login_uri"], rows),
         )
 
-    def reduce_to_uri_dict(rows: List[Dict[str, str]]) -> Dict[str, str]:
+    def reduce_to_uri_dict(rows: list[dict[str, str]]) -> dict[str, str]:
         """Reduce list of logins' dicts to dict with login name as key and login URL as value."""
 
         def reduce_reporting_name_collisions(
-            acc: Dict[str, str], row: Dict[str, str]
-        ) -> Dict[str, str]:
+            acc: dict[str, str],
+            row: dict[str, str],
+        ) -> dict[str, str]:
             if row["name"] in acc and acc[row["name"]] != row["login_uri"]:
                 print(
                     f"Name collision: item `{row['name']}`, has different URLs: "
                     f"`{acc[row['name']]}` and `{row['login_uri']}`.\n"
-                    f"Using first one."
+                    f"Using first one.",
                 )
             else:
                 acc[row["name"]] = row["login_uri"]
@@ -117,7 +117,7 @@ def patch_help() -> None:
             "markdown.link": "underline blue",  # Links can be underlined and blue
             "markdown.italic": "italic",  # Explicit style for italic text
             "markdown.bold": "bold",  # Explicit style for bold text
-        }
+        },
     )
     console = Console(theme=custom_theme)
     assert patch.__doc__
@@ -131,13 +131,14 @@ def patch_help() -> None:
 
 
 def convert(
-    input_path: Path, output_path: Path, *, output_format: str, extra_fields_to_notes: bool
+    input_path: Path,
+    output_path: Path,
+    *,
+    output_format: str,
+    extra_fields_to_notes: bool,
 ) -> None:
     """Convert mSecure export to Bitwarden format."""
-    if output_format == "csv":
-        writer = BitwardenCsv(output_path)
-    else:
-        writer = BitwardenJson(output_path)
+    writer = BitwardenCsv(output_path) if output_format == "csv" else BitwardenJson(output_path)
     with input_path.open(newline="", encoding="utf-8") as infile:
         reader = csv.reader(infile, delimiter=",")
         for row in reader:

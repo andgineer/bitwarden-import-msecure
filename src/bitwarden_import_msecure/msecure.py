@@ -1,16 +1,17 @@
 """mSecure export parser."""
 
-from typing import Dict, List, Tuple, Any
-import rich_click as click
+from typing import Any
 
+import rich_click as click
 
 BANK_FOLDER = "bank"
 
 
-def import_msecure_row(row: List[str], extra_fields_to_notes: bool) -> Dict[str, Any]:
+def import_msecure_row(row: list[str], extra_fields_to_notes: bool) -> dict[str, Any]:
     """Extract data from mSecure CSV row."""
     name = row[0].split("|")[0]
-    if len(row[0].split("|")) > 2:
+    max_name_parts = 2
+    if len(row[0].split("|")) > max_name_parts:
         print(f"Warning: name has more than one '|' character :`{row[0]}`.")
     record_type = "login"
     if row[1].strip() not in ["Login", "Credit Card", "Email Account"]:
@@ -48,8 +49,9 @@ def import_msecure_row(row: List[str], extra_fields_to_notes: bool) -> Dict[str,
 
 
 def extract_fields(
-    row: List[str], extra_fields_to_notes: bool
-) -> Tuple[Dict[str, str], Dict[str, str], str]:
+    row: list[str],
+    extra_fields_to_notes: bool,
+) -> tuple[dict[str, str], dict[str, str], str]:
     """Extract fields from mSecure row.
 
     Return (special_fields, fields, notes)
@@ -79,7 +81,7 @@ def extract_fields(
     return special_fields, fields, notes
 
 
-def get_creds(field_values: Dict[str, str], row: List[str]) -> Tuple[str, str]:
+def get_creds(field_values: dict[str, str], row: list[str]) -> tuple[str, str]:
     """Get username and password."""
     username = field_values["Card Number"] or field_values["Username"]
     password = field_values["Security Code"] or field_values["Password"]
