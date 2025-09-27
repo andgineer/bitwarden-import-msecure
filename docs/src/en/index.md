@@ -37,7 +37,7 @@ Additionally, this simple Python script can be easily modified to meet your spec
     python -m pip install --user pipx
     ```
 
-### Installing `bitwarden-import-msecure`:
+### Installing `bitwarden-import-msecure`
 
 In the terminal (command prompt), execute:
 
@@ -47,7 +47,7 @@ pipx install bitwarden-import-msecure
 
 ## Usage
 
-In mSecure execute `File` -> `Export` -> `CSV..` and save the file.
+In mSecure, execute `File` → `Export` → `CSV...` and save the file.
 
 In the terminal (command prompt) opened in the same folder as the exported file (or add the path to the folder):
 
@@ -55,16 +55,16 @@ In the terminal (command prompt) opened in the same folder as the exported file 
 bitwarden-import-msecure "mSecure Export File.csv"
 ```
 
-It will create `bitwarden.json` in the same folder as input file.
+It will create `bitwarden.json` in the same folder as the input file.
 
-In Bitwarden dialog `File` -> `Import data` select File format: "Bitwarden (json)".
-Choose previously create file `bitwarden.json` and press "Import data".
+In Bitwarden, select `File` → `Import data` and choose File format: "Bitwarden (json)".
+Choose the previously created file `bitwarden.json` and press "Import data".
 
 
 ### Advanced
 
-Use
+Use the following command to see all available options:
+
 ```bash
 bitwarden-import-msecure --help
 ```
-to see all available options.
