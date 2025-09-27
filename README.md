@@ -12,7 +12,13 @@ Unlike the built-in Bitwarden import tool, this script organizes secrets into me
 
 ## Developers
 
-Do not forget to run `. ./activate.sh`.
+Set up the development environment by running (note the dot and space before ./activate.sh):
+
+```bash
+. ./activate.sh
+```
+
+This script creates a virtual environment (if it doesn't exist) using [uv](https://github.com/astral-sh/uv), installs development dependencies, and then activates the environment.
 
 ## Scripts
 Install [invoke](https://docs.pyinvoke.org/en/stable/) preferably with [pipx](https://pypa.github.io/pipx/):
