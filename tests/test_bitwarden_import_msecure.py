@@ -34,7 +34,10 @@ def test_patch_without_existing_output_file(runner, tmp_path):
     )
 
     assert result.exit_code == 1
-    assert f"Output file `{non_existent_output}` does not exist." in result.output.replace("\n", "")
+    # Normalize output by replacing newlines with spaces (rich-click wraps long text)
+    normalized_output = " ".join(result.output.split())
+    assert "does not exist" in normalized_output
+    assert "non_existent_output.json" in normalized_output
 
 
 def test_patch_with_incorrect_format(runner, tmp_path):
@@ -74,6 +77,8 @@ def test_overwrite_without_force(runner, tmp_path):
     )
 
     assert result.exit_code == 1, f"Expected exit code 1, got {result.exit_code}"
-    assert "--force" in result.output.replace("\n", ""), (
+    # Normalize output by replacing newlines with spaces (rich-click wraps long text)
+    normalized_output = " ".join(result.output.split())
+    assert "--force" in normalized_output, (
         f"Expected error message not found in output: {result.output}"
     )

@@ -8,29 +8,39 @@ This is a Python CLI tool that converts mSecure password manager exports to Bitw
 
 ## Development Commands
 
-This project uses [invoke](https://docs.pyinvoke.org/en/stable/) for task management. Install with `pipx install invoke`.
+### Environment Setup
+```bash
+# Set up or activate development environment
+source ./activate.sh
+```
+
+**IMPORTANT**: Always activate the virtual environment before running any commands. Use `source ./activate.sh` before each command.
+
+This project uses [invoke](https://docs.pyinvoke.org/en/stable/) for task management.
 
 ### Essential Commands
-- `invoke --list` - Show all available tasks
-- `pytest` - Run tests (includes doctests via pytest.ini configuration)
-- `invoke pre` - Run pre-commit checks (linting, formatting, etc.)
-- `invoke reqs` - Upgrade requirements and install development dependencies
-- `invoke compile-requirements` - Update requirements.txt files from .in files
+- `source ./activate.sh && invoke --list` - Show all available tasks
+- `source ./activate.sh && pytest` - Run tests (includes doctests via pytest.ini configuration)
+- `source ./activate.sh && invoke pre` - Run pre-commit checks (linting, formatting, etc.)
+- `source ./activate.sh && invoke reqs` - Upgrade requirements and install development dependencies
+- `source ./activate.sh && invoke compile-requirements` - Update requirements.txt files from .in files
+
+**IMPORTANT**: Always use `invoke pre` or `pre-commit run --all-files` for code quality checks. Never run ruff or mypy directly.
 
 ### Testing
-- `pytest` - Run all tests
-- `pytest tests/test_specific.py` - Run specific test file
-- `pytest -k "test_pattern"` - Run tests matching pattern
+- `source ./activate.sh && pytest` - Run all tests
+- `source ./activate.sh && pytest tests/test_specific.py` - Run specific test file
+- `source ./activate.sh && pytest -k "test_pattern"` - Run tests matching pattern
 
 ### Version Management
-- `invoke version` - Show current version
-- `invoke ver-release` - Bump release version
-- `invoke ver-bug` - Bump bug fix version
-- `invoke ver-feature` - Bump feature version
+- `source ./activate.sh && invoke version` - Show current version
+- `source ./activate.sh && invoke ver-release` - Bump release version
+- `source ./activate.sh && invoke ver-bug` - Bump bug fix version
+- `source ./activate.sh && invoke ver-feature` - Bump feature version
 
 ### Documentation
-- `invoke docs-en` - Preview English documentation
-- `invoke docs-ru` - Preview Russian documentation
+- `source ./activate.sh && invoke docs-en` - Preview English documentation
+- `source ./activate.sh && invoke docs-ru` - Preview Russian documentation
 
 ## Architecture
 
