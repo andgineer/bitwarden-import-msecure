@@ -2,6 +2,23 @@ from bitwarden_import_msecure.__about__ import __version__
 from bitwarden_import_msecure.main import bitwarden_import_msecure
 
 
+def assert_in_output(expected: str, output: str) -> None:
+    """
+    Assert that expected string is in output, handling rich-click text wrapping.
+
+    rich-click can insert newlines anywhere in the output, including in the middle
+    of words or file paths. This function normalizes both strings by removing all
+    whitespace before comparison.
+    """
+    normalized_output = "".join(output.split())
+    normalized_expected = "".join(expected.split())
+    assert normalized_expected in normalized_output, (
+        f"Expected '{expected}' not found in output.\n"
+        f"Normalized expected: {normalized_expected}\n"
+        f"Normalized output: {normalized_output}"
+    )
+
+
 def test_version_option(runner):
     result = runner.invoke(bitwarden_import_msecure, ["--version"])
     assert result.exit_code == 0
@@ -20,7 +37,7 @@ def test_force_and_patch_together(runner, tmp_path):
     )
 
     assert result.exit_code == 1
-    assert "--force and --patch cannot be used simultaneously." in result.output
+    assert_in_output("--force and --patch cannot be used simultaneously.", result.output)
 
 
 def test_patch_without_existing_output_file(runner, tmp_path):
@@ -34,10 +51,7 @@ def test_patch_without_existing_output_file(runner, tmp_path):
     )
 
     assert result.exit_code == 1
-    # Normalize output by replacing newlines with spaces (rich-click wraps long text)
-    normalized_output = " ".join(result.output.split())
-    assert "does not exist" in normalized_output
-    assert "non_existent_output.json" in normalized_output
+    assert_in_output(f"Output file `{non_existent_output}` does not exist.", result.output)
 
 
 def test_patch_with_incorrect_format(runner, tmp_path):
@@ -53,7 +67,7 @@ def test_patch_with_incorrect_format(runner, tmp_path):
     )
 
     assert result.exit_code == 1
-    assert "Patching is only supported for JSON format." in result.output
+    assert_in_output("Patching is only supported for JSON format.", result.output)
 
 
 def test_overwrite_without_force(runner, tmp_path):
@@ -77,8 +91,6 @@ def test_overwrite_without_force(runner, tmp_path):
     )
 
     assert result.exit_code == 1, f"Expected exit code 1, got {result.exit_code}"
-    # Normalize output by replacing newlines with spaces (rich-click wraps long text)
-    normalized_output = " ".join(result.output.split())
-    assert "--force" in normalized_output, (
-        f"Expected error message not found in output: {result.output}"
+    assert_in_output(
+        f"Output file `{test_output}` already exists. Use --force to overwrite.", result.output
     )
