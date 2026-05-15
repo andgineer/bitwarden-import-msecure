@@ -8,7 +8,7 @@ repo_name: bitwarden_import_msecure
 repo_url: https://github.com/andgineer/bitwarden-import-msecure
 edit_uri: edit/master/docs
 docs_dir: 'src/LANGUAGE'
-site_dir: '../site/SITE_PREFIX'
+site_dir: 'SITE_DIR'
 
 plugins:
   - awesome-pages
